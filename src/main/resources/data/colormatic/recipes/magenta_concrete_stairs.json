@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "concrete_stairs",
+  "pattern": [
+    "C  ",
+    "CC ",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "colormatic:magenta_concrete"
+    }
+  },
+  "result": {
+    "item": "colormatic:magenta_concrete_stairs"
+  }
+}

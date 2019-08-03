@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "terracotta_stairs",
+  "pattern": [
+    "C  ",
+    "CC ",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:pink_terracotta"
+    }
+  },
+  "result": {
+    "item": "colormatic:pink_terracotta_stairs"
+  }
+}

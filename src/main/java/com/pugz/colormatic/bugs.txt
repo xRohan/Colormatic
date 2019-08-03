@@ -1,0 +1,8 @@
+Concrete Powder with 1 layer can be replaced with another concrete powder layer of a different color
+Concrete Powder falling onto itself with the same layer count breaks
+Concrete Powder falling onto a different color changes the color and adds onto it
+
+Vanilla Concrete and Concrete Powder are still in the game
+-un register?
+-remove from creative inventory?
+-remove crafting recipe

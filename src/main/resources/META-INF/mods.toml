@@ -1,0 +1,10 @@
+modLoader="javafml" #mandatory
+loaderVersion="[27]" #mandatory
+authors="Pugz" #optional
+[[mods]] #mandatory
+modId="colormatic" #mandatory
+version="1.0" #mandatory
+displayName="Colormatic" #mandatory
+description='''
+Build better with more color!
+'''

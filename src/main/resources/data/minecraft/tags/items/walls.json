@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+	"colormatic:red_terracotta_wall",
+	"colormatic:orange_terracotta_wall",
+	"colormatic:yellow_terracotta_wall",
+	"colormatic:lime_terracotta_wall",
+	"colormatic:green_terracotta_wall",
+	"colormatic:cyan_terracotta_wall",
+	"colormatic:blue_terracotta_wall",
+	"colormatic:light_blue_terracotta_wall",
+	"colormatic:pink_terracotta_wall",
+	"colormatic:magenta_terracotta_wall",
+	"colormatic:purple_terracotta_wall",
+	"colormatic:black_terracotta_wall",
+	"colormatic:gray_terracotta_wall",
+	"colormatic:light_gray_terracotta_wall",
+	"colormatic:white_terracotta_wall",
+	"colormatic:brown_terracotta_wall",
+	"colormatic:brown_terracotta_wall"
+  ]
+}

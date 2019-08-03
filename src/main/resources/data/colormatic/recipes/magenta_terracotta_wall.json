@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "terracotta_walls",
+  "pattern": [
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:magenta_terracotta"
+    }
+  },
+  "result": {
+    "item": "colormatic:magenta_terracotta_wall"
+  }
+}

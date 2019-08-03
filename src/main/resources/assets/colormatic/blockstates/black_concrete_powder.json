@@ -1,0 +1,52 @@
+{
+    "variants": {
+        "layers=1":  [
+            { "model": "colormatic:block/black_concrete_powder_height2" },
+            { "model": "colormatic:block/black_concrete_powder_height2", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height2", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height2", "y": 270 }
+        ],
+        "layers=2":  [
+            { "model": "colormatic:block/black_concrete_powder_height4" },
+            { "model": "colormatic:block/black_concrete_powder_height4", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height4", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height4", "y": 270 }
+        ],
+        "layers=3":  [
+            { "model": "colormatic:block/black_concrete_powder_height6" },
+            { "model": "colormatic:block/black_concrete_powder_height6", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height6", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height6", "y": 270 }
+        ],
+        "layers=4":  [
+            { "model": "colormatic:block/black_concrete_powder_height8" },
+            { "model": "colormatic:block/black_concrete_powder_height8", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height8", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height8", "y": 270 }
+        ],
+        "layers=5":  [
+            { "model": "colormatic:block/black_concrete_powder_height10" },
+            { "model": "colormatic:block/black_concrete_powder_height10", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height10", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height10", "y": 270 }
+        ],
+        "layers=6":  [
+            { "model": "colormatic:block/black_concrete_powder_height12" },
+            { "model": "colormatic:block/black_concrete_powder_height12", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height12", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height12", "y": 270 }
+        ],
+        "layers=7":  [
+            { "model": "colormatic:block/black_concrete_powder_height14" },
+            { "model": "colormatic:block/black_concrete_powder_height14", "y": 90 },
+            { "model": "colormatic:block/black_concrete_powder_height14", "y": 180 },
+            { "model": "colormatic:block/black_concrete_powder_height14", "y": 270 }
+        ],
+        "layers=8":  [
+            { "model": "block/black_concrete_powder" },
+            { "model": "block/black_concrete_powder", "y": 90 },
+            { "model": "block/black_concrete_powder", "y": 180 },
+            { "model": "block/black_concrete_powder", "y": 270 }
+        ]
+    }
+}

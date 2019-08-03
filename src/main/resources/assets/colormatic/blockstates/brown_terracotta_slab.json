@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "colormatic:block/brown_terracotta_slab" },
+    "type=top": { "model": "colormatic:block/brown_terracotta_slab_top" },
+    "type=double": { "model": "block/brown_terracotta" }
+  }
+}
