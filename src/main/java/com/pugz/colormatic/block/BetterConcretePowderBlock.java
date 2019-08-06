@@ -18,6 +18,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -120,6 +121,7 @@ public class BetterConcretePowderBlock extends FallingBlock {
             return downState.getBlock() == state.getBlock() && downState.get(LAYERS) < 8;
         }
         else if (!(downState.getBlock() instanceof BetterConcretePowderBlock)) {
+            System.out.println("Didnt hit myself");
             return downState.isAir() || block == Blocks.FIRE || material.isLiquid() || material.isReplaceable();
         }
         return true;
@@ -174,7 +176,6 @@ public class BetterConcretePowderBlock extends FallingBlock {
         return state.getFluidState().isTagged(FluidTags.WATER);
     }
 
-    /*
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         int i = stateIn.get(LAYERS);
@@ -185,15 +186,13 @@ public class BetterConcretePowderBlock extends FallingBlock {
             return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
         }
     }
-    */
 
     @Override
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
         if (placedFromFall && state.getBlock() instanceof BetterConcretePowderBlock) {
             return true;
         }
-        else if (useContext.replacingClickedOnBlock()) {
-            placedFromFall = false;
+        else if (!placedFromFall && useContext.replacingClickedOnBlock()) {
             if (useContext.getItem().getItem() == asItem()) {
                 if (state.get(LAYERS) < 8) {
                     return useContext.getFace() == Direction.UP;
