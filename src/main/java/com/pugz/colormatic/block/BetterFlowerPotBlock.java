@@ -1,7 +1,6 @@
 package com.pugz.colormatic.block;
 
 import com.google.common.collect.Maps;
-import com.pugz.colormatic.main.util.IFlowerPot;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -26,7 +25,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Map;
 
-public class BetterFlowerPotBlock extends Block implements IFlowerPot {
+public class BetterFlowerPotBlock extends Block {
 
     private static final Map<Block, Block> flowers = Maps.newHashMap();
     protected static final VoxelShape SHAPE = Block.makeCuboidShape(5.0D, 0.0D, 5.0D, 11.0D, 6.0D, 11.0D);

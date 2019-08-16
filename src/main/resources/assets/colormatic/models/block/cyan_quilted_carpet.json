@@ -1,0 +1,7 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+    "particle": "colormatic:block/cyan_quilted_wool",
+    "wool": "colormatic:block/cyan_quilted_wool"
+  }
+}

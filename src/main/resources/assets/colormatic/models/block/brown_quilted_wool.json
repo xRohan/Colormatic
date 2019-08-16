@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "colormatic:block/brown_quilted_wool"
+  }
+}

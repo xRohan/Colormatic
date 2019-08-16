@@ -61,7 +61,7 @@ public class BetterConcretePowderBlock extends FallingBlock {
     }
 
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPES[state.get(LAYERS)];
+        return SHAPES[state.get(LAYERS) - 1];
     }
 
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -121,8 +121,7 @@ public class BetterConcretePowderBlock extends FallingBlock {
             return downState.getBlock() == state.getBlock() && downState.get(LAYERS) < 8;
         }
         else if (!(downState.getBlock() instanceof BetterConcretePowderBlock)) {
-            System.out.println("Didnt hit myself");
-            return downState.isAir() || block == Blocks.FIRE || material.isLiquid() || material.isReplaceable();
+            return downState.isAir() || block == Blocks.FIRE || material.isLiquid();
         }
         return true;
     }
@@ -199,11 +198,10 @@ public class BetterConcretePowderBlock extends FallingBlock {
                 }
             }
             else if (useContext.getItem().getItem() != asItem()) {
-                if (useContext.getItem().getItem() != Item.getItemFromBlock(state.getBlock())) return false;
-                else return state.get(LAYERS) == 1;
+                return state.get(LAYERS) == 1;
             }
         }
-        return useContext.getItem().getItem() != asItem();
+        return false;
     }
 
     @Override

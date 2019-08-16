@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "quilted_wool",
+  "pattern": [
+    "WW",
+    "WW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:green_wool"
+    }
+  },
+  "result": {
+    "item": "colormatic:green_quilted_wool"
+  }
+}
