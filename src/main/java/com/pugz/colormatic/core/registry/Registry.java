@@ -1,17 +1,14 @@
-package com.pugz.colormatic.registry;
+package com.pugz.colormatic.core.registry;
 
-import com.pugz.colormatic.client.FallingConcretePowderRenderer;
-import com.pugz.colormatic.entity.FallingConcretePowderEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.pugz.colormatic.registry.ColormaticBlocks.*;
+import static com.pugz.colormatic.core.registry.ColormaticBlocks.*;
 
 @Mod.EventBusSubscriber(modid = "colormatic", bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Registry {
@@ -87,7 +84,7 @@ public class Registry {
                 LIGHT_GRAY_QUILTED_CARPET, LIGHT_GRAY_QUILTED_WOOL,
                 WHITE_QUILTED_CARPET, WHITE_QUILTED_WOOL,
                 BROWN_QUILTED_CARPET, BROWN_QUILTED_WOOL,
-                MERCHANTS_QUILTED_CARPET, MERCHANTS_QUILTED_WOOL
+                TRADERS_QUILTED_CARPET, TRADERS_QUILTED_WOOL
         );
     }
 
@@ -282,8 +279,8 @@ public class Registry {
                 new BlockItem(WHITE_QUILTED_WOOL, buildingBlocks).setRegistryName(WHITE_QUILTED_WOOL.getRegistryName()),
                 new BlockItem(BROWN_QUILTED_CARPET, decorations).setRegistryName(BROWN_QUILTED_CARPET.getRegistryName()),
                 new BlockItem(BROWN_QUILTED_WOOL, buildingBlocks).setRegistryName(BROWN_QUILTED_WOOL.getRegistryName()),
-                new BlockItem(MERCHANTS_QUILTED_CARPET, decorations).setRegistryName(MERCHANTS_QUILTED_CARPET.getRegistryName()),
-                new BlockItem(MERCHANTS_QUILTED_WOOL, buildingBlocks).setRegistryName(MERCHANTS_QUILTED_WOOL.getRegistryName())
+                new BlockItem(TRADERS_QUILTED_CARPET, decorations).setRegistryName(TRADERS_QUILTED_CARPET.getRegistryName()),
+                new BlockItem(TRADERS_QUILTED_WOOL, buildingBlocks).setRegistryName(TRADERS_QUILTED_WOOL.getRegistryName())
         );
     }
 }

@@ -1,7 +1,7 @@
-package com.pugz.colormatic.registry;
+package com.pugz.colormatic.core.registry;
 
-import com.pugz.colormatic.block.*;
-import com.pugz.colormatic.main.BlockProperties;
+import com.pugz.colormatic.common.block.*;
+import com.pugz.colormatic.core.util.BlockProperties;
 import net.minecraft.block.*;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.DyeColor;
@@ -62,7 +62,7 @@ public class ColormaticBlocks {
     public static Block BROWN_CONCRETE = new BetterConcreteBlock(BlockProperties.CONCRETE(MaterialColor.BROWN)).setRegistryName( "brown_concrete");
 
     //concrete powder
-    public static Block RED_CONCRETE_POWDER = new BetterConcretePowderBlock2(BlockProperties.CONCRETE_POWDER(MaterialColor.RED), RED_CONCRETE).setRegistryName("red_concrete_powder");
+    public static Block RED_CONCRETE_POWDER = new BetterConcretePowderBlock(BlockProperties.CONCRETE_POWDER(MaterialColor.RED), RED_CONCRETE).setRegistryName("red_concrete_powder");
     public static Block ORANGE_CONCRETE_POWDER = new BetterConcretePowderBlock(BlockProperties.CONCRETE_POWDER(MaterialColor.ADOBE), ORANGE_CONCRETE).setRegistryName("orange_concrete_powder");
     public static Block YELLOW_CONCRETE_POWDER = new BetterConcretePowderBlock(BlockProperties.CONCRETE_POWDER(MaterialColor.YELLOW), YELLOW_CONCRETE).setRegistryName("yellow_concrete_powder");
     public static Block LIME_CONCRETE_POWDER = new BetterConcretePowderBlock(BlockProperties.CONCRETE_POWDER(MaterialColor.LIME), LIME_CONCRETE).setRegistryName("lime_concrete_powder");
@@ -173,12 +173,12 @@ public class ColormaticBlocks {
     public static Block TERRACOTTA_SLAB = new SlabBlock(BlockProperties.TERRACOTTA(MaterialColor.ADOBE)).setRegistryName("terracotta_slab");
 
     //flowers
-    public static FlowerBlock HIBISCUS = new FlowerBlock(Effects.LUCK, 4, BlockProperties.FLOWERS);
-    public static FlowerBlock LOTUS = new FlowerBlock(Effects.NAUSEA, 5, BlockProperties.FLOWERS);
+    public static Block HIBISCUS = new FlowerBlock(Effects.LUCK, 4, BlockProperties.FLOWERS);
+    public static Block LOTUS = new FlowerBlock(Effects.NAUSEA, 5, BlockProperties.FLOWERS);
 
     //flower pot
-    public static FlowerPotBlock POTTED_HIBISCUS = new FlowerPotBlock(HIBISCUS, BlockProperties.FLOWER_POT);
-    public static FlowerPotBlock POTTED_LOTUS = new FlowerPotBlock(LOTUS, BlockProperties.FLOWER_POT);
+    public static Block POTTED_HIBISCUS = new FlowerPotBlock(HIBISCUS, BlockProperties.FLOWER_POT);
+    public static Block POTTED_LOTUS = new FlowerPotBlock(LOTUS, BlockProperties.FLOWER_POT);
 
     //quilted wool
     public static Block RED_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.RED)).setRegistryName("red_quilted_wool");
@@ -197,7 +197,7 @@ public class ColormaticBlocks {
     public static Block LIGHT_GRAY_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.LIGHT_GRAY)).setRegistryName("light_gray_quilted_wool");
     public static Block WHITE_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.SNOW)).setRegistryName("white_quilted_wool");
     public static Block BROWN_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.BROWN)).setRegistryName("brown_quilted_wool");
-    public static Block MERCHANTS_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.BROWN)).setRegistryName("merchants_quilted_wool");
+    public static Block TRADERS_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.BLUE_TERRACOTTA)).setRegistryName("traders_quilted_wool");
 
     //quilted carpets
     public static Block RED_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.RED), DyeColor.RED).setRegistryName("red_quilted_carpet");
@@ -216,5 +216,5 @@ public class ColormaticBlocks {
     public static Block LIGHT_GRAY_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.LIGHT_GRAY), DyeColor.LIGHT_GRAY).setRegistryName("light_gray_quilted_carpet");
     public static Block WHITE_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.SNOW), DyeColor.WHITE).setRegistryName("white_quilted_carpet");
     public static Block BROWN_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.BROWN), DyeColor.BROWN).setRegistryName("brown_quilted_carpet");
-    public static Block MERCHANTS_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.BROWN), DyeColor.BROWN).setRegistryName("merchants_quilted_carpet");
+    public static Block TRADERS_QUILTED_CARPET = new ColormaticCarpetBlock2(BlockProperties.CARPET(MaterialColor.BLUE_TERRACOTTA), DyeColor.BLUE).setRegistryName("traders_quilted_carpet");
 }

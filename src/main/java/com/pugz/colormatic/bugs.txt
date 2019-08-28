@@ -1,4 +1,4 @@
 Concrete Powder falling onto itself with the same layer count breaks
 Concrete Powder falling onto a different color crashes
 
-Quilted Wool and Carpets dont have drops/recipes
+Quilted Carpets dont update blocks next to them when broken

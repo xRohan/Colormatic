@@ -1,10 +1,18 @@
 modLoader="javafml"
-loaderVersion="[28]"
+loaderVersion="[24,]"
+logoFile="logo.png"
 authors="Pugz"
+
 [[mods]]
-modId="colormatic"
-version="1.0"
-displayName="Colormatic"
-description='''
-Build better with more color!
-'''
+    modId="colormatic"
+    version="1.0"
+    displayName="Colormatic"
+    description='''
+    Build better with more color!
+    '''
+    [[dependencies.colormatic]]
+        modId="forge"
+        mandatory=true
+        versionRange="[${forge_version},)"
+        ordering="NONE"
+        side="BOTH"

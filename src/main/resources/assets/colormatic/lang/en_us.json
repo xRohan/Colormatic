@@ -130,7 +130,7 @@
   "block.colormatic.light_gray_quilted_wool": "Light Gray Quilted Wool",
   "block.colormatic.white_quilted_wool": "White Quilted Wool",
   "block.colormatic.brown_quilted_wool": "Brown Quilted Wool",
-  "block.colormatic.merchants_quilted_wool": "Merchant's Quilted Wool",
+  "block.colormatic.traders_quilted_wool": "Trader's Quilted Wool",
   "block.colormatic.red_quilted_carpet": "Red Quilted Carpet",
   "block.colormatic.orange_quilted_carpet": "Orange Quilted Carpet",
   "block.colormatic.yellow_quilted_carpet": "Yellow Quilted Carpet",
@@ -147,5 +147,5 @@
   "block.colormatic.light_gray_quilted_carpet": "Light Gray Quilted Carpet",
   "block.colormatic.white_quilted_carpet": "White Quilted Carpet",
   "block.colormatic.brown_quilted_carpet": "Brown Quilted Carpet",
-  "block.colormatic.merchants_quilted_carpet": "Merchant's Quilted Carpet"
+  "block.colormatic.traders_quilted_carpet": "Trader's Quilted Carpet"
 }

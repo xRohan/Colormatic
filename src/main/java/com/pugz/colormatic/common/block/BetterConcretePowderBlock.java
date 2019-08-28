@@ -1,4 +1,4 @@
-package com.pugz.colormatic.block;
+package com.pugz.colormatic.common.block;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 
 import java.util.Random;
 
-import static com.pugz.colormatic.block.BetterConcreteBlock.WATERLOGGED;
+import static com.pugz.colormatic.common.block.BetterConcreteBlock.WATERLOGGED;
 
 public class BetterConcretePowderBlock extends FallingBlock {
 
@@ -202,6 +202,11 @@ public class BetterConcretePowderBlock extends FallingBlock {
             }
         }
         return false;
+    }
+
+    @Override
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        //?
     }
 
     @Override

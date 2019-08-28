@@ -1,0 +1,29 @@
+{
+  "variants": {
+    "direction=full": { "model": "colormatic:block/traders_quilted_carpet" },
+    "direction=center": { "model": "colormatic:block/traders_quilted_carpet_center" },
+    "direction=three_way_n": { "model": "colormatic:block/traders_quilted_carpet_three_way", "y": 270 },
+    "direction=three_way_s": { "model": "colormatic:block/traders_quilted_carpet_three_way", "y": 90 },
+    "direction=three_way_e": { "model": "colormatic:block/traders_quilted_carpet_three_way" },
+    "direction=three_way_w": { "model": "colormatic:block/traders_quilted_carpet_three_way", "y": 180 },
+    "direction=four_way": { "model": "colormatic:block/traders_quilted_carpet_four_way" },
+    "direction=up_down_end_n": { "model": "colormatic:block/traders_quilted_carpet_up_down_end", "y": 180 },
+    "direction=up_down_end_s": { "model": "colormatic:block/traders_quilted_carpet_up_down_end" },
+    "direction=up_down_end_e": { "model": "colormatic:block/traders_quilted_carpet_up_down_end", "y": 270 },
+    "direction=up_down_end_w": { "model": "colormatic:block/traders_quilted_carpet_up_down_end", "y": 90 },
+    "direction=up_down_ns": { "model": "colormatic:block/traders_quilted_carpet_up_down" },
+    "direction=up_down_ew": { "model": "colormatic:block/traders_quilted_carpet_up_down", "y": 90 },
+    "direction=corner_se": { "model": "colormatic:block/traders_quilted_carpet_corner" },
+    "direction=corner_sw": { "model": "colormatic:block/traders_quilted_carpet_corner", "y": 90 },
+    "direction=corner_ne": { "model": "colormatic:block/traders_quilted_carpet_corner", "y": 270 },
+    "direction=corner_nw": { "model": "colormatic:block/traders_quilted_carpet_corner", "y": 180 },
+    "direction=corner_center_se": { "model": "colormatic:block/traders_quilted_carpet_corner_center" },
+    "direction=corner_center_sw": { "model": "colormatic:block/traders_quilted_carpet_corner_center", "y": 90 },
+    "direction=corner_center_ne": { "model": "colormatic:block/traders_quilted_carpet_corner_center", "y": 270 },
+    "direction=corner_center_nw": { "model": "colormatic:block/traders_quilted_carpet_corner_center", "y": 180 },
+    "direction=side_n": { "model": "colormatic:block/traders_quilted_carpet_corner_center" },
+    "direction=side_e": { "model": "colormatic:block/traders_quilted_carpet_corner_center", "y": 90 },
+    "direction=side_s": { "model": "colormatic:block/traders_quilted_carpet_corner_center", "y": 180 },
+    "direction=side_w": { "model": "colormatic:block/traders_quilted_carpet_corner_center", "y": 270 }
+  }
+}

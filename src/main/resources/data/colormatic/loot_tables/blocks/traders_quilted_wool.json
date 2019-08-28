@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "colormatic:merchants_quilted_wool"
+          "name": "colormatic:traders_quilted_wool"
         }
       ],
       "conditions": [

@@ -1,4 +1,4 @@
-package com.pugz.colormatic.main;
+package com.pugz.colormatic.core.util;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

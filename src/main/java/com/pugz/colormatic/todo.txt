@@ -1,0 +1,13 @@
+make connection behavior for Quilted Carpets more efficient
+make connection work when breaking Quilted Carpets
+add connection for all Quilted Carpets, not just the Trader's one
+add connection for Quilted Wool Blocks
+
+get FallingConcretePowderEntity to work
+
+NEXT:
+Glazed Terracotta Pillars
+Concrete Walls
+Wisteria Wood
+Wisteria Trees generation
+Butterflies and Wisterents

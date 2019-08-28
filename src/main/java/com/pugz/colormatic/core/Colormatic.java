@@ -1,8 +1,10 @@
-package com.pugz.colormatic.main;
+package com.pugz.colormatic.core;
 
 import com.pugz.colormatic.main.util.EntityUtils;
 import com.pugz.colormatic.registry.ColormaticEntities;
 import com.pugz.colormatic.registry.Registry;
+import com.pugz.colormatic.core.util.EntityUtils;
+import com.pugz.colormatic.core.registry.ColormaticEntities;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

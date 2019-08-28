@@ -6,11 +6,11 @@
   ],
   "key": {
     "W": {
-      "item": "colormatic:merchants_quilted_wool"
+      "item": "colormatic:traders_quilted_wool"
     }
   },
   "result": {
-    "item": "colormatic:merchants_quilted_carpet",
+    "item": "colormatic:traders_quilted_carpet",
     "count": 3
   }
 }
