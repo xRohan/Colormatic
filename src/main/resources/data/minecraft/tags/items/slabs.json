@@ -1,22 +1,6 @@
 {
   "replace": false,
   "values": [
-	"colormatic:red_concrete_slab",
-	"colormatic:orange_concrete_slab",
-	"colormatic:yellow_concrete_slab",
-	"colormatic:lime_concrete_slab",
-	"colormatic:green_concrete_slab",
-	"colormatic:cyan_concrete_slab",
-	"colormatic:blue_concrete_slab",
-	"colormatic:light_blue_concrete_slab",
-	"colormatic:pink_concrete_slab",
-	"colormatic:magenta_concrete_slab",
-	"colormatic:purple_concrete_slab",
-	"colormatic:black_concrete_slab",
-	"colormatic:gray_concrete_slab",
-	"colormatic:light_gray_concrete_slab",
-	"colormatic:white_concrete_slab",
-	"colormatic:brown_concrete_slab",
 	"colormatic:red_terracotta_slab",
 	"colormatic:orange_terracotta_slab",
 	"colormatic:yellow_terracotta_slab",
@@ -33,6 +17,7 @@
 	"colormatic:light_gray_terracotta_slab",
 	"colormatic:white_terracotta_slab",
 	"colormatic:brown_terracotta_slab",
-	"colormatic:terracotta_slab"
+	"colormatic:terracotta_slab",
+	"colormatic:wisteria_slab"
   ]
 }

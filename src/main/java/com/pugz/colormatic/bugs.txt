@@ -2,3 +2,14 @@ Concrete Powder falling onto itself with the same layer count breaks
 Concrete Powder falling onto a different color crashes
 
 Quilted Carpets dont update blocks next to them when broken
+
+summoning wisteria boats crashes
+
+Generation/world loading issues
+Wisteria Trees don't have a full trunk
+Can't strip Wisteria Logs/Wood
+Concrete Layers don't waterlog properly
+Flower Forest generation is broken
+Wisteria stuff doesn't burn
+Wisteria Fences/Gates can't be used as fuel
+Ravagers can't break Wisteria Vines (unfixable?)

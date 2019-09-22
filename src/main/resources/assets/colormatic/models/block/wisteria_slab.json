@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "colormatic:block/wisteria_planks",
+    "top": "colormatic:block/wisteria_planks",
+    "side": "colormatic:block/wisteria_planks"
+  }
+}

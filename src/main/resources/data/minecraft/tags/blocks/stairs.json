@@ -1,22 +1,6 @@
 {
   "replace": false,
   "values": [
-	"colormatic:red_concrete_stairs",
-	"colormatic:orange_concrete_stairs",
-	"colormatic:yellow_concrete_stairs",
-	"colormatic:lime_concrete_stairs",
-	"colormatic:green_concrete_stairs",
-	"colormatic:cyan_concrete_stairs",
-	"colormatic:blue_concrete_stairs",
-	"colormatic:light_blue_concrete_stairs",
-	"colormatic:pink_concrete_stairs",
-	"colormatic:magenta_concrete_stairs",
-	"colormatic:purple_concrete_stairs",
-	"colormatic:black_concrete_stairs",
-	"colormatic:gray_concrete_stairs",
-	"colormatic:light_gray_concrete_stairs",
-	"colormatic:white_concrete_stairs",
-	"colormatic:brown_concrete_stairs",
 	"colormatic:red_terracotta_stairs",
 	"colormatic:orange_terracotta_stairs",
 	"colormatic:yellow_terracotta_stairs",
@@ -33,6 +17,7 @@
 	"colormatic:light_gray_terracotta_stairs",
 	"colormatic:white_terracotta_stairs",
 	"colormatic:brown_terracotta_stairs",
-	"colormatic:terracotta_stairs"
+	"colormatic:terracotta_stairs",
+	"colormatic:wisteria_stairs"
   ]
 }

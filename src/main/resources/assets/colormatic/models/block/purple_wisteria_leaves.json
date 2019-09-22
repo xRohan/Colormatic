@@ -1,0 +1,6 @@
+{
+    "parent": "block/leaves",
+    "textures": {
+        "all": "colormatic:block/purple_wisteria_leaves"
+    }
+}

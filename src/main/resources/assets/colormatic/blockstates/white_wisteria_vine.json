@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=upper":  { "model": "colormatic:block/wisteria_vine_white_top" },
+    "half=lower":  { "model": "colormatic:block/wisteria_vine_white_bottom" }
+  }
+}

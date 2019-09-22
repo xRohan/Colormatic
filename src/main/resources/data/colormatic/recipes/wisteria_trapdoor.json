@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "wooden_trapdoor",
+  "pattern": [
+    "PPP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "colormatic:wisteria_planks"
+    }
+  },
+  "result": {
+    "item": "colormatic:wisteria_trapdoor",
+    "count": 2
+  }
+}

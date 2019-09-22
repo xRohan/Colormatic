@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "P P",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "colormatic:wisteria_planks"
+    }
+  },
+  "result": {
+    "item": "colormatic:wisteria_boat"
+  }
+}

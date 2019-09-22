@@ -1,7 +1,0 @@
-{
-  "variants": {
-    "type=bottom": { "model": "colormatic:block/gray_concrete_slab" },
-    "type=top": { "model": "colormatic:block/gray_concrete_slab_top" },
-    "type=double": { "model": "block/gray_concrete" }
-  }
-}

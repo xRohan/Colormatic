@@ -7,6 +7,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.pathfinding.PathType;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
@@ -33,14 +34,14 @@ public class BetterConcretePowderBlock extends FallingBlock {
 
     private BlockState solidState;
     private static boolean shouldDropItemIn = false;
-    private boolean placedFromFall;
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 8);
+    public static final BooleanProperty FALLING = BooleanProperty.create("falling");
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{VoxelShapes.empty(), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
     public BetterConcretePowderBlock(Properties properties, Block solidStateIn) {
         super(properties);
         solidState = solidStateIn.getDefaultState().with(LAYERS, getDefaultState().get(LAYERS));
-        setDefaultState(stateContainer.getBaseState().with(LAYERS, 1));
+        setDefaultState(stateContainer.getBaseState().with(LAYERS, 1).with(FALLING, false));
     }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
@@ -67,11 +68,9 @@ public class BetterConcretePowderBlock extends FallingBlock {
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         Direction face = hit.getFace();
         ItemStack heldItem = player.getHeldItem(handIn);
-        placedFromFall = false;
-
         if (face == Direction.UP) {
             if (heldItem.getItem() == Items.WATER_BUCKET) {
-                worldIn.setBlockState(pos, solidState.with(LAYERS, state.get(LAYERS)).with(WATERLOGGED, true));
+                worldIn.setBlockState(pos, solidState.with(LAYERS, state.get(LAYERS)).with(WATERLOGGED, true), 4);
                 return true;
             }
             if (heldItem.getItem() instanceof ShovelItem) {
@@ -137,7 +136,7 @@ public class BetterConcretePowderBlock extends FallingBlock {
 
     @Override
     protected void onStartFalling(FallingBlockEntity entity) {
-        placedFromFall = true;
+        entity.fallTile = getDefaultState().with(FALLING, true);
     }
 
     @Override
@@ -150,7 +149,7 @@ public class BetterConcretePowderBlock extends FallingBlock {
         else if (isTouchingLiquid(worldIn, pos)) {
             worldIn.setBlockState(pos, solidState.with(LAYERS, fallingState.get(LAYERS)), 3);
         }
-        placedFromFall = false;
+        fallingState = getDefaultState().with(FALLING, false);
     }
 
     private static boolean isTouchingLiquid(IBlockReader reader, BlockPos pos) {
@@ -159,10 +158,10 @@ public class BetterConcretePowderBlock extends FallingBlock {
 
         for(Direction direction : Direction.values()) {
             BlockState blockstate = reader.getBlockState(blockpos$mutableblockpos);
-            if (direction != Direction.DOWN || causesSolidify(blockstate)) {
+            if (direction != Direction.DOWN || causesSolidify(blockstate, reader.getBlockState(pos))) {
                 blockpos$mutableblockpos.setPos(pos).move(direction);
                 blockstate = reader.getBlockState(blockpos$mutableblockpos);
-                if (causesSolidify(blockstate) && !Block.hasSolidSide(blockstate, reader, pos, direction.getOpposite())) {
+                if (causesSolidify(blockstate, reader.getBlockState(pos)) && !Block.hasSolidSide(blockstate, reader, pos, direction.getOpposite())) {
                     flag = true;
                     break;
                 }
@@ -171,8 +170,14 @@ public class BetterConcretePowderBlock extends FallingBlock {
         return flag;
     }
 
-    private static boolean causesSolidify(BlockState state) {
-        return state.getFluidState().isTagged(FluidTags.WATER);
+    private static boolean causesSolidify(BlockState solidifyState, BlockState state) {
+        if (solidifyState.getBlock() instanceof BetterConcreteBlock) {
+            if (solidifyState.get(LAYERS) <= state.get(LAYERS)) {
+                return true;
+            }
+            return false;
+        }
+        return solidifyState.getFluidState().isTagged(FluidTags.WATER);
     }
 
     @Override
@@ -188,10 +193,10 @@ public class BetterConcretePowderBlock extends FallingBlock {
 
     @Override
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-        if (placedFromFall && state.getBlock() instanceof BetterConcretePowderBlock) {
+        if (state.get(FALLING) && state.getBlock() instanceof BetterConcretePowderBlock) {
             return true;
         }
-        else if (!placedFromFall && useContext.replacingClickedOnBlock()) {
+        else if (!state.get(FALLING) && useContext.replacingClickedOnBlock()) {
             if (useContext.getItem().getItem() == asItem()) {
                 if (state.get(LAYERS) < 8) {
                     return useContext.getFace() == Direction.UP;
@@ -212,21 +217,21 @@ public class BetterConcretePowderBlock extends FallingBlock {
     @Override
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IBlockReader iblockreader = context.getWorld();
-        BlockPos blockpos = context.getPos();
-        BlockState blockstate = context.getWorld().getBlockState(context.getPos());
-        if (blockstate.getBlock() instanceof BetterConcretePowderBlock) {
-            int i = blockstate.get(LAYERS);
-            return !causesSolidify(iblockreader.getBlockState(blockpos)) && !isTouchingLiquid(iblockreader, blockpos) ? super.getStateForPlacement(context).with(LAYERS, Integer.valueOf(Math.min(8, i + 1))) : solidState.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
+        IBlockReader reader = context.getWorld();
+        BlockPos pos = context.getPos();
+        BlockState state = context.getWorld().getBlockState(context.getPos());
+        if (state.getBlock() instanceof BetterConcretePowderBlock) {
+            int i = state.get(LAYERS);
+            return !causesSolidify(reader.getBlockState(pos), state) && !isTouchingLiquid(reader, pos) ? super.getStateForPlacement(context).with(LAYERS, Integer.valueOf(Math.min(8, i + 1))) : solidState.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
         }
         else {
-            return !causesSolidify(iblockreader.getBlockState(blockpos)) && !isTouchingLiquid(iblockreader, blockpos) ? super.getStateForPlacement(context) : solidState;
+            return !causesSolidify(reader.getBlockState(pos), state) && !isTouchingLiquid(reader, pos) ? super.getStateForPlacement(context) : solidState;
         }
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(LAYERS);
+        builder.add(LAYERS, FALLING);
     }
 
     @Override

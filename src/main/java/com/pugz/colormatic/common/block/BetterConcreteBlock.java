@@ -3,9 +3,12 @@ package com.pugz.colormatic.common.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
@@ -16,6 +19,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -57,7 +61,7 @@ public class BetterConcreteBlock extends Block implements IWaterLoggable {
         IFluidState fluidstate = context.getWorld().getFluidState(context.getPos());
         if (blockstate.getBlock() instanceof BetterConcreteBlock) {
             int i = blockstate.get(LAYERS);
-            return blockstate.with(LAYERS, Integer.valueOf(Math.min(8, i + 1))).with(WATERLOGGED, Boolean.valueOf(fluidstate.getFluid() == Fluids.WATER));
+            return blockstate.with(LAYERS, Math.min(8, i + 1)).with(WATERLOGGED, fluidstate.getFluid() == Fluids.WATER);
         } else {
             return super.getStateForPlacement(context);
         }
@@ -66,6 +70,11 @@ public class BetterConcreteBlock extends Block implements IWaterLoggable {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(LAYERS, WATERLOGGED);
+    }
+
+    @Override
+    public boolean canContainFluid(IBlockReader reader, BlockPos pos, BlockState state, Fluid fluid) {
+        return state.get(LAYERS) < 8;
     }
 
     public IFluidState getFluidState(BlockState state) {

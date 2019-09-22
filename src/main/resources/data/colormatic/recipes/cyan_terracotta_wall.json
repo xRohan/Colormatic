@@ -11,6 +11,7 @@
     }
   },
   "result": {
-    "item": "colormatic:cyan_terracotta_wall"
+    "item": "colormatic:cyan_terracotta_wall",
+    "count": 6
   }
 }

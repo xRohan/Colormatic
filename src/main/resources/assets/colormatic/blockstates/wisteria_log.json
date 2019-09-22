@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "axis=y":  { "model": "colormatic:block/wisteria_log" },
+    "axis=z":   { "model": "colormatic:block/wisteria_log", "x": 90 },
+    "axis=x":   { "model": "colormatic:block/wisteria_log", "x": 90, "y": 90 }
+  }
+}

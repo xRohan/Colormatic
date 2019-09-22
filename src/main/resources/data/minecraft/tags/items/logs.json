@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "colormatic:wisteria_log",
+    "colormatic:wisteria_wood",
+    "colormatic:stripped_wisteria_log",
+    "colormatic:stripped_wisteria_wood"
+  ]
+}

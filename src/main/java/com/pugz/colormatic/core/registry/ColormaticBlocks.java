@@ -1,11 +1,13 @@
 package com.pugz.colormatic.core.registry;
 
 import com.pugz.colormatic.common.block.*;
+import com.pugz.colormatic.core.util.WisteriaColor;
+import com.pugz.colormatic.common.world.gen.feature.trees.WisteriaTree;
 import com.pugz.colormatic.core.util.BlockProperties;
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.DyeColor;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ResourceLocation;
 
 public class ColormaticBlocks {
@@ -79,42 +81,6 @@ public class ColormaticBlocks {
     public static Block WHITE_CONCRETE_POWDER = new BetterConcretePowderBlock(BlockProperties.CONCRETE_POWDER(MaterialColor.SNOW), WHITE_CONCRETE).setRegistryName("white_concrete_powder");
     public static Block BROWN_CONCRETE_POWDER = new BetterConcretePowderBlock(BlockProperties.CONCRETE_POWDER(MaterialColor.BROWN), BROWN_CONCRETE).setRegistryName("brown_concrete_powder");
 
-    //concrete stairs
-    public static Block RED_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.RED), RED_CONCRETE.getDefaultState()).setRegistryName("red_concrete_stairs");
-    public static Block ORANGE_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.ADOBE), ORANGE_CONCRETE.getDefaultState()).setRegistryName("orange_concrete_stairs");
-    public static Block YELLOW_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.YELLOW), YELLOW_CONCRETE.getDefaultState()).setRegistryName("yellow_concrete_stairs");
-    public static Block LIME_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.LIME), LIME_CONCRETE.getDefaultState()).setRegistryName("lime_concrete_stairs");
-    public static Block GREEN_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.GREEN), GREEN_CONCRETE.getDefaultState()).setRegistryName("green_concrete_stairs");
-    public static Block CYAN_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.CYAN), CYAN_CONCRETE.getDefaultState()).setRegistryName("cyan_concrete_stairs");
-    public static Block BLUE_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.BLUE), BLUE_CONCRETE.getDefaultState()).setRegistryName("blue_concrete_stairs");
-    public static Block LIGHT_BLUE_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.LIGHT_BLUE), LIGHT_BLUE_CONCRETE.getDefaultState()).setRegistryName("light_blue_concrete_stairs");
-    public static Block PINK_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.PINK), PINK_CONCRETE.getDefaultState()).setRegistryName("pink_concrete_stairs");
-    public static Block MAGENTA_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.MAGENTA), MAGENTA_CONCRETE.getDefaultState()).setRegistryName("magenta_concrete_stairs");
-    public static Block PURPLE_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.PURPLE), PURPLE_CONCRETE.getDefaultState()).setRegistryName("purple_concrete_stairs");
-    public static Block BLACK_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.BLACK), BLACK_CONCRETE.getDefaultState()).setRegistryName("black_concrete_stairs");
-    public static Block GRAY_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.GRAY), GRAY_CONCRETE.getDefaultState()).setRegistryName("gray_concrete_stairs");
-    public static Block LIGHT_GRAY_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.LIGHT_GRAY), LIGHT_GRAY_CONCRETE.getDefaultState()).setRegistryName("light_gray_concrete_stairs");
-    public static Block WHITE_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.SNOW), WHITE_CONCRETE.getDefaultState()).setRegistryName("white_concrete_stairs");
-    public static Block BROWN_CONCRETE_STAIRS = new ColormaticStairsBlock(BlockProperties.CONCRETE(MaterialColor.BROWN), BROWN_CONCRETE.getDefaultState()).setRegistryName("brown_concrete_stairs");
-
-    //concrete slabs
-    public static final Block RED_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.RED)).setRegistryName("red_concrete_slab");
-    public static Block ORANGE_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.ADOBE)).setRegistryName("orange_concrete_slab");
-    public static Block YELLOW_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.YELLOW)).setRegistryName("yellow_concrete_slab");
-    public static Block LIME_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.LIME)).setRegistryName("lime_concrete_slab");
-    public static Block GREEN_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.GREEN)).setRegistryName("green_concrete_slab");
-    public static Block CYAN_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.CYAN)).setRegistryName("cyan_concrete_slab");
-    public static Block BLUE_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.BLUE)).setRegistryName("blue_concrete_slab");
-    public static Block LIGHT_BLUE_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.LIGHT_BLUE)).setRegistryName("light_blue_concrete_slab");
-    public static Block PINK_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.PINK)).setRegistryName("pink_concrete_slab");
-    public static Block MAGENTA_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.MAGENTA)).setRegistryName("magenta_concrete_slab");
-    public static Block PURPLE_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.PURPLE)).setRegistryName("purple_concrete_slab");
-    public static Block BLACK_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.BLACK)).setRegistryName("black_concrete_slab");
-    public static Block GRAY_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.GRAY)).setRegistryName("gray_concrete_slab");
-    public static Block LIGHT_GRAY_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.LIGHT_GRAY)).setRegistryName("light_gray_concrete_slab");
-    public static Block WHITE_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.SNOW)).setRegistryName("white_concrete_slab");
-    public static Block BROWN_CONCRETE_SLAB = new SlabBlock(BlockProperties.CONCRETE(MaterialColor.BROWN)).setRegistryName("brown_concrete_slab");
-
     //terracotta walls
     public static Block RED_TERRACOTTA_WALL = new WallBlock(BlockProperties.TERRACOTTA(MaterialColor.RED_TERRACOTTA)).setRegistryName("red_terracotta_wall");
     public static Block ORANGE_TERRACOTTA_WALL = new WallBlock(BlockProperties.TERRACOTTA(MaterialColor.ORANGE_TERRACOTTA)).setRegistryName("orange_terracotta_wall");
@@ -172,14 +138,6 @@ public class ColormaticBlocks {
     public static Block BROWN_TERRACOTTA_SLAB = new SlabBlock(BlockProperties.TERRACOTTA(MaterialColor.BROWN_TERRACOTTA)).setRegistryName("brown_terracotta_slab");
     public static Block TERRACOTTA_SLAB = new SlabBlock(BlockProperties.TERRACOTTA(MaterialColor.ADOBE)).setRegistryName("terracotta_slab");
 
-    //flowers
-    public static Block HIBISCUS = new FlowerBlock(Effects.LUCK, 4, BlockProperties.FLOWERS);
-    public static Block LOTUS = new FlowerBlock(Effects.NAUSEA, 5, BlockProperties.FLOWERS);
-
-    //flower pot
-    public static Block POTTED_HIBISCUS = new FlowerPotBlock(HIBISCUS, BlockProperties.FLOWER_POT);
-    public static Block POTTED_LOTUS = new FlowerPotBlock(LOTUS, BlockProperties.FLOWER_POT);
-
     //quilted wool
     public static Block RED_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.RED)).setRegistryName("red_quilted_wool");
     public static Block ORANGE_QUILTED_WOOL = new Block(BlockProperties.WOOL(MaterialColor.ADOBE)).setRegistryName("orange_quilted_wool");
@@ -217,4 +175,43 @@ public class ColormaticBlocks {
     public static Block WHITE_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.SNOW), DyeColor.WHITE).setRegistryName("white_quilted_carpet");
     public static Block BROWN_QUILTED_CARPET = new ColormaticCarpetBlock(BlockProperties.CARPET(MaterialColor.BROWN), DyeColor.BROWN).setRegistryName("brown_quilted_carpet");
     public static Block TRADERS_QUILTED_CARPET = new ColormaticCarpetBlock2(BlockProperties.CARPET(MaterialColor.BLUE_TERRACOTTA), DyeColor.BLUE).setRegistryName("traders_quilted_carpet");
+
+    //wisteria wood
+    public static Block WISTERIA_LOG = new ColormaticLogBlock(MaterialColor.WHITE_TERRACOTTA, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD), ColormaticBlocks.STRIPPED_WISTERIA_LOG).setRegistryName("wisteria_log");
+    public static Block STRIPPED_WISTERIA_LOG = new LogBlock(MaterialColor.WHITE_TERRACOTTA, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)).setRegistryName("stripped_wisteria_log");
+    public static Block WISTERIA_WOOD = new ColormaticWoodBlock(Block.Properties.create(Material.WOOD, MaterialColor.GRAY).hardnessAndResistance(2.0F).sound(SoundType.WOOD), ColormaticBlocks.STRIPPED_WISTERIA_WOOD).setRegistryName("wisteria_wood");
+    public static Block STRIPPED_WISTERIA_WOOD = new RotatedPillarBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F).sound(SoundType.WOOD)).setRegistryName("stripped_wisteria_wood");
+    public static Block WISTERIA_PLANKS = new Block(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_planks");
+    public static Block PINK_WISTERIA_SAPLING = new ColormaticSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT), new WisteriaTree(WisteriaColor.PINK)).setRegistryName("pink_wisteria_sapling");
+    public static Block BLUE_WISTERIA_SAPLING = new ColormaticSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT), new WisteriaTree(WisteriaColor.BLUE)).setRegistryName("blue_wisteria_sapling");
+    public static Block PURPLE_WISTERIA_SAPLING = new ColormaticSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT), new WisteriaTree(WisteriaColor.PURPLE)).setRegistryName("purple_wisteria_sapling");
+    public static Block WHITE_WISTERIA_SAPLING = new ColormaticSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT), new WisteriaTree(WisteriaColor.WHITE)).setRegistryName("white_wisteria_sapling");
+    public static Block POTTED_PINK_WISTERIA_SAPLING = new FlowerPotBlock(PINK_WISTERIA_SAPLING, Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0F)).setRegistryName("potted_pink_wisteria_sapling");
+    public static Block POTTED_BLUE_WISTERIA_SAPLING = new FlowerPotBlock(BLUE_WISTERIA_SAPLING, Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0F)).setRegistryName("potted_blue_wisteria_sapling");
+    public static Block POTTED_PURPLE_WISTERIA_SAPLING = new FlowerPotBlock(PURPLE_WISTERIA_SAPLING, Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0F)).setRegistryName("potted_purple_wisteria_sapling");
+    public static Block POTTED_WHITE_WISTERIA_SAPLING = new FlowerPotBlock(WHITE_WISTERIA_SAPLING, Block.Properties.create(Material.MISCELLANEOUS).hardnessAndResistance(0.0F)).setRegistryName("potted_white_wisteria_sapling");
+    public static Block PINK_WISTERIA_LEAVES = new LeavesBlock(Block.Properties.create(Material.LEAVES, MaterialColor.PINK).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("pink_wisteria_leaves");
+    public static Block BLUE_WISTERIA_LEAVES = new LeavesBlock(Block.Properties.create(Material.LEAVES, MaterialColor.BLUE).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("blue_wisteria_leaves");
+    public static Block PURPLE_WISTERIA_LEAVES = new LeavesBlock(Block.Properties.create(Material.LEAVES, MaterialColor.PURPLE).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("purple_wisteria_leaves");
+    public static Block WHITE_WISTERIA_LEAVES = new LeavesBlock(Block.Properties.create(Material.LEAVES, MaterialColor.SNOW).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("white_wisteria_leaves");
+    public static Block PINK_WISTERIA_VINE = new WisteriaVineBlock(Block.Properties.create(Material.LEAVES, MaterialColor.PINK).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("pink_wisteria_vine");
+    public static Block BLUE_WISTERIA_VINE = new WisteriaVineBlock(Block.Properties.create(Material.LEAVES, MaterialColor.BLUE).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("blue_wisteria_vine");
+    public static Block PURPLE_WISTERIA_VINE = new WisteriaVineBlock(Block.Properties.create(Material.LEAVES, MaterialColor.PURPLE).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("purple_wisteria_vine");
+    public static Block WHITE_WISTERIA_VINE = new WisteriaVineBlock(Block.Properties.create(Material.LEAVES, MaterialColor.SNOW).hardnessAndResistance(0.2F).tickRandomly().sound(SoundType.PLANT)).setRegistryName("white_wisteria_vine");
+    public static Block WISTERIA_STAIRS = new ColormaticStairsBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD), WISTERIA_PLANKS.getDefaultState()).setRegistryName("wisteria_stairs");
+    public static Block WISTERIA_SLAB = new SlabBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_slab");
+    public static Block WISTERIA_SIGN = new AbstractColormaticSignBlock.StandingSign(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_sign");
+    public static Block WISTERIA_WALL_SIGN = new AbstractColormaticSignBlock.WallSign(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD).lootFrom(WISTERIA_SIGN)).setRegistryName("wisteria_wall_sign");
+    public static Block WISTERIA_FENCE = new FenceBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_fence");
+    public static Block WISTERIA_FENCE_GATE = new FenceGateBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_fence_gate");
+    public static Block WISTERIA_TRAPDOOR = new ColormaticTrapDoorBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_trapdoor");
+    public static Block WISTERIA_DOOR = new ColormaticDoorBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_door");
+    public static Block WISTERIA_PRESSURE_PLATE = new ColormaticPressurePlateBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD), PressurePlateBlock.Sensitivity.EVERYTHING).setRegistryName("wisteria_pressure_plate");
+    public static Block WISTERIA_BUTTON = new ColormaticButtonBlock(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)).setRegistryName("wisteria_button");
+
+    //delphiniums
+    public static Block PINK_DELPHINIUM = new ColormaticDoublePlantBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT)).setRegistryName("pink_delphinium");
+    public static Block BLUE_DELPHINIUM = new ColormaticDoublePlantBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT)).setRegistryName("blue_delphinium");
+    public static Block PURPLE_DELPHINIUM = new ColormaticDoublePlantBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT)).setRegistryName("purple_delphinium");
+    public static Block WHITE_DELPHINIUM = new ColormaticDoublePlantBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT)).setRegistryName("white_delphinium");
 }

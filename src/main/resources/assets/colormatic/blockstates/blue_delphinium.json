@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "half=lower": { "model": "colormatic:block/blue_delphinium_bottom" },
+        "half=upper":    { "model": "colormatic:block/blue_delphinium_top" }
+    }
+}

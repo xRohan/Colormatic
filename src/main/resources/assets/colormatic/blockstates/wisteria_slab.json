@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "type=bottom": { "model": "colormatic:block/wisteria_slab" },
+    "type=top": { "model": "colormatic:block/wisteria_slab_top" },
+    "type=double": { "model": "colormatic:block/wisteria_planks" }
+  }
+}

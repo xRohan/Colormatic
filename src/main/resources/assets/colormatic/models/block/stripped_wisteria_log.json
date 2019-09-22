@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "colormatic:block/stripped_wisteria_log_top",
+    "side": "colormatic:block/stripped_wisteria_log"
+  }
+}
