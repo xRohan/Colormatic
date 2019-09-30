@@ -2,6 +2,7 @@
 A Minecraft Mod that adds colorful features to explore! Feature List so far:
  - Wisteria Trees and Wood
    - Come in pink, purple, white, and blue colors
+   - Craftable into stairs, slabs, fences, fence gates, trapdoors, doors, signs, buttons, pressure plates, and boats
  - Better Flower Forest Generation
    - Generate wisteria trees mostly, instead of oak and birch
  - Quilted Carpets
@@ -16,3 +17,7 @@ A Minecraft Mod that adds colorful features to explore! Feature List so far:
  - Delphiniums
    - Double flower that spawns in flower forests
    - Come in pink, purple, white, and blue colors
+ - Wisteria Vines
+   - Leafy blocks that generate with wisteria trees
+   - Slow players
+   - Can only be placed on itself or a leaf block
