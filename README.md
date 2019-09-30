@@ -1,7 +1,7 @@
 # Colormatic
 A Minecraft Mod that adds colorful features to explore! Feature List so far:
  - Wisteria Trees and Wood
-   - Come in pink, purple, white, and blue versions
+   - Come in pink, purple, white, and blue colors
  - Better Flower Forest Generation
    - Generate wisteria trees mostly, instead of oak and birch
  - Quilted Carpets
@@ -13,3 +13,6 @@ A Minecraft Mod that adds colorful features to explore! Feature List so far:
    - Will solidify into a concrete block with the same height
  - Terracotta Stairs, Slabs, and Walls
    - New building blocks
+ - Delphiniums
+   - Double flower that spawns in flower forests
+   - Come in pink, purple, white, and blue colors
