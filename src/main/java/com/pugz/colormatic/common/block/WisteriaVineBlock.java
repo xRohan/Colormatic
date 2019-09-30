@@ -6,6 +6,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
@@ -138,9 +139,6 @@ public class WisteriaVineBlock extends Block implements net.minecraftforge.commo
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         //if (entityIn instanceof LivingEntity && entityIn.getType() != EntityType.WISTERENT)
-        if (state == getDefaultState().with(HALF, DoubleBlockHalf.UPPER)) {
-            entityIn.setMotionMultiplier(state, new Vec3d((double)0.75F, 0.65D, (double)0.75F));
-        }
-        else entityIn.setMotionMultiplier(state, new Vec3d((double)0.85F, 0.8D, (double)0.85F));
+        entityIn.setMotionMultiplier(state, new Vec3d((double)0.75F, 0.65D, (double)0.75F));
     }
 }

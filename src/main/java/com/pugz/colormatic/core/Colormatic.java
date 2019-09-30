@@ -20,7 +20,6 @@ public class Colormatic {
     }
 
     private void clientRegistries(final FMLClientSetupEvent event) {
-        //ColormaticEntities.registerEntityRenders();
         ColormaticTileEntities.registerEntityRenders();
     }
 
