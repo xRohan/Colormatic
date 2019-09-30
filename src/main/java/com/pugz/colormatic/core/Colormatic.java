@@ -1,11 +1,8 @@
 package com.pugz.colormatic.core;
 
+import com.pugz.colormatic.core.registry.BlockRegistry;
 import com.pugz.colormatic.core.registry.ColormaticTileEntities;
 import com.pugz.colormatic.core.util.EntityUtils;
-import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.ModDimension;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,5 +22,6 @@ public class Colormatic {
 
     private void setupCommon(final FMLCommonSetupEvent event) {
         EntityUtils.registerMerchantTrades();
+        BlockRegistry.registerBlocks();
     }
 }

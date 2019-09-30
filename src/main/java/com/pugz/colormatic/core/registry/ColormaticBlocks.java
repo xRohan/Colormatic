@@ -177,9 +177,9 @@ public class ColormaticBlocks {
     public static Block TRADERS_QUILTED_CARPET = new ColormaticCarpetBlock2(BlockProperties.CARPET(MaterialColor.BLUE_TERRACOTTA), DyeColor.BLUE).setRegistryName("traders_quilted_carpet");
 
     //wisteria wood
-    public static Block WISTERIA_LOG = new ColormaticLogBlock(MaterialColor.WHITE_TERRACOTTA, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD), ColormaticBlocks.STRIPPED_WISTERIA_LOG).setRegistryName("wisteria_log");
+    public static Block WISTERIA_LOG = new LogBlock(MaterialColor.WHITE_TERRACOTTA, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_log");
     public static Block STRIPPED_WISTERIA_LOG = new LogBlock(MaterialColor.WHITE_TERRACOTTA, Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F).sound(SoundType.WOOD)).setRegistryName("stripped_wisteria_log");
-    public static Block WISTERIA_WOOD = new ColormaticWoodBlock(Block.Properties.create(Material.WOOD, MaterialColor.GRAY).hardnessAndResistance(2.0F).sound(SoundType.WOOD), ColormaticBlocks.STRIPPED_WISTERIA_WOOD).setRegistryName("wisteria_wood");
+    public static Block WISTERIA_WOOD = new RotatedPillarBlock(Block.Properties.create(Material.WOOD, MaterialColor.GRAY).hardnessAndResistance(2.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_wood");
     public static Block STRIPPED_WISTERIA_WOOD = new RotatedPillarBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F).sound(SoundType.WOOD)).setRegistryName("stripped_wisteria_wood");
     public static Block WISTERIA_PLANKS = new Block(Block.Properties.create(Material.WOOD).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_planks");
     public static Block PINK_WISTERIA_SAPLING = new ColormaticSaplingBlock(Block.Properties.create(Material.PLANTS).doesNotBlockMovement().tickRandomly().hardnessAndResistance(0.0F).sound(SoundType.PLANT), new WisteriaTree(WisteriaColor.PINK)).setRegistryName("pink_wisteria_sapling");
@@ -204,10 +204,10 @@ public class ColormaticBlocks {
     public static Block WISTERIA_WALL_SIGN = new AbstractColormaticSignBlock.WallSign(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).doesNotBlockMovement().hardnessAndResistance(1.0F).sound(SoundType.WOOD).lootFrom(WISTERIA_SIGN)).setRegistryName("wisteria_wall_sign");
     public static Block WISTERIA_FENCE = new FenceBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_fence");
     public static Block WISTERIA_FENCE_GATE = new FenceGateBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_fence_gate");
-    public static Block WISTERIA_TRAPDOOR = new ColormaticTrapDoorBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_trapdoor");
-    public static Block WISTERIA_DOOR = new ColormaticDoorBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_door");
-    public static Block WISTERIA_PRESSURE_PLATE = new ColormaticPressurePlateBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD), PressurePlateBlock.Sensitivity.EVERYTHING).setRegistryName("wisteria_pressure_plate");
-    public static Block WISTERIA_BUTTON = new ColormaticButtonBlock(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)).setRegistryName("wisteria_button");
+    public static Block WISTERIA_TRAPDOOR = new TrapDoorBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_trapdoor");
+    public static Block WISTERIA_DOOR = new DoorBlock(Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).hardnessAndResistance(3.0F).sound(SoundType.WOOD)).setRegistryName("wisteria_door");
+    public static Block WISTERIA_PRESSURE_PLATE = new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, Block.Properties.create(Material.WOOD, MaterialColor.WHITE_TERRACOTTA).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)).setRegistryName("wisteria_pressure_plate");
+    public static Block WISTERIA_BUTTON = new WoodButtonBlock(Block.Properties.create(Material.MISCELLANEOUS).doesNotBlockMovement().hardnessAndResistance(0.5F).sound(SoundType.WOOD)).setRegistryName("wisteria_button");
 
     //delphiniums
     public static Block PINK_DELPHINIUM = new ColormaticDoublePlantBlock(Block.Properties.create(Material.TALL_PLANTS).doesNotBlockMovement().hardnessAndResistance(0.0F).sound(SoundType.PLANT)).setRegistryName("pink_delphinium");

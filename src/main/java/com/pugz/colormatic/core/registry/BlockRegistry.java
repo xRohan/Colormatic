@@ -1,9 +1,15 @@
 package com.pugz.colormatic.core.registry;
 
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ComposterBlock;
+import net.minecraft.block.FireBlock;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.util.IItemProvider;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -291,5 +297,66 @@ public class BlockRegistry {
                 new BlockItem(PURPLE_DELPHINIUM, decorations).setRegistryName(PURPLE_DELPHINIUM.getRegistryName()),
                 new BlockItem(WHITE_DELPHINIUM, decorations).setRegistryName(WHITE_DELPHINIUM.getRegistryName())
         );
+    }
+
+    public static void registerBlocks() {
+        //compostable blocks
+        registerCompostable(BLUE_DELPHINIUM,0.75F);
+        registerCompostable(WHITE_DELPHINIUM,0.75F);
+        registerCompostable(PINK_DELPHINIUM,0.75F);
+        registerCompostable(PURPLE_DELPHINIUM,0.75F);
+        registerCompostable(BLUE_WISTERIA_LEAVES,0.35F);
+        registerCompostable(WHITE_WISTERIA_LEAVES,0.35F);
+        registerCompostable(PINK_WISTERIA_LEAVES,0.35F);
+        registerCompostable(PURPLE_WISTERIA_LEAVES,0.35F);
+        registerCompostable(BLUE_WISTERIA_VINE,0.35F);
+        registerCompostable(WHITE_WISTERIA_VINE,0.35F);
+        registerCompostable(PINK_WISTERIA_VINE,0.35F);
+        registerCompostable(PURPLE_WISTERIA_VINE,0.35F);
+        registerCompostable(BLUE_WISTERIA_SAPLING,0.35F);
+        registerCompostable(WHITE_WISTERIA_SAPLING,0.35F);
+        registerCompostable(PINK_WISTERIA_SAPLING,0.35F);
+        registerCompostable(PURPLE_WISTERIA_SAPLING,0.35F);
+
+        //strippable blocks
+        registerStrippable(WISTERIA_LOG, STRIPPED_WISTERIA_LOG);
+        registerStrippable(WISTERIA_WOOD, STRIPPED_WISTERIA_WOOD);
+
+        //flammable blocks
+        registerFlammable(BLUE_WISTERIA_LEAVES, 30, 60);
+        registerFlammable(WHITE_WISTERIA_LEAVES, 30, 60);
+        registerFlammable(PINK_WISTERIA_LEAVES, 30, 60);
+        registerFlammable(PURPLE_WISTERIA_LEAVES, 30, 60);
+        registerFlammable(BLUE_WISTERIA_VINE, 30, 60);
+        registerFlammable(WHITE_WISTERIA_VINE, 30, 60);
+        registerFlammable(PINK_WISTERIA_VINE, 30, 60);
+        registerFlammable(PURPLE_WISTERIA_VINE, 30, 60);
+        registerFlammable(WISTERIA_LOG, 5, 5);
+        registerFlammable(WISTERIA_WOOD, 5, 5);
+        registerFlammable(STRIPPED_WISTERIA_LOG, 5, 5);
+        registerFlammable(STRIPPED_WISTERIA_WOOD, 5, 5);
+        registerFlammable(WISTERIA_PLANKS, 5, 20);
+        registerFlammable(WISTERIA_SLAB, 5, 20);
+        registerFlammable(WISTERIA_STAIRS, 5, 20);
+        registerFlammable(WISTERIA_FENCE, 5, 20);
+        registerFlammable(WISTERIA_FENCE_GATE, 5, 20);
+        registerFlammable(BLUE_DELPHINIUM, 60, 100);
+        registerFlammable(WHITE_DELPHINIUM, 60, 100);
+        registerFlammable(PINK_DELPHINIUM, 60, 100);
+        registerFlammable(PURPLE_DELPHINIUM, 60, 100);
+    }
+
+    public static void registerFlammable(Block block, int encouragement, int flammability) {
+        FireBlock fire = (FireBlock) Blocks.FIRE;
+        fire.setFireInfo(block, encouragement, flammability);
+    }
+
+    public static void registerCompostable(IItemProvider item, float chance) {
+        ComposterBlock.CHANCES.put(item.asItem(), chance);
+    }
+
+    public static void registerStrippable(Block log, Block stripped) {
+        AxeItem.BLOCK_STRIPPING_MAP = Maps.newHashMap(AxeItem.BLOCK_STRIPPING_MAP);
+        AxeItem.BLOCK_STRIPPING_MAP.put(log, stripped);
     }
 }
