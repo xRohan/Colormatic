@@ -1,11 +1,9 @@
 package com.pugz.colormatic.core.registry;
 
-import com.pugz.colormatic.client.render.ColormaticSignTileEntityRenderer;
 import com.pugz.colormatic.common.tileentity.ColormaticSignTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "colormatic", bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -17,9 +15,5 @@ public class ColormaticTileEntities {
         event.getRegistry().registerAll(
                 WISTERIA_SIGN
         );
-    }
-
-    public static void registerEntityRenders() {
-        ClientRegistry.bindTileEntitySpecialRenderer(ColormaticSignTileEntity.class, new ColormaticSignTileEntityRenderer());
     }
 }

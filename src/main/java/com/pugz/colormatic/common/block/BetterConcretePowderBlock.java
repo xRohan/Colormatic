@@ -1,28 +1,29 @@
 package com.pugz.colormatic.common.block;
 
+import com.pugz.colormatic.common.entity.FallingConcretePowderEntity;
+import com.pugz.colormatic.core.registry.ColormaticBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
@@ -30,18 +31,16 @@ import java.util.Random;
 
 import static com.pugz.colormatic.common.block.BetterConcreteBlock.WATERLOGGED;
 
-public class BetterConcretePowderBlock extends FallingBlock {
+public class BetterConcretePowderBlock extends ConcretePowderBlock {
 
     private BlockState solidState;
-    private static boolean shouldDropItemIn = false;
     public static final IntegerProperty LAYERS = IntegerProperty.create("layers", 1, 8);
-    public static final BooleanProperty FALLING = BooleanProperty.create("falling");
     protected static final VoxelShape[] SHAPES = new VoxelShape[]{VoxelShapes.empty(), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
 
     public BetterConcretePowderBlock(Properties properties, Block solidStateIn) {
-        super(properties);
+        super(solidStateIn, properties);
         solidState = solidStateIn.getDefaultState().with(LAYERS, getDefaultState().get(LAYERS));
-        setDefaultState(stateContainer.getBaseState().with(LAYERS, 1).with(FALLING, false));
+        setDefaultState(stateContainer.getBaseState().with(LAYERS, 1));
     }
 
     public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
@@ -83,8 +82,7 @@ public class BetterConcretePowderBlock extends FallingBlock {
                 }
                 else {
                     worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-                    shouldDropItemIn = true;
-                    worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this, 1)));
+                    //worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this, 1)));
                     return true;
                 }
             }
@@ -93,63 +91,26 @@ public class BetterConcretePowderBlock extends FallingBlock {
     }
 
     @Override
-    public void tick(BlockState state, World worldIn, BlockPos pos, Random random) {
-        if (!worldIn.isRemote) {
-            checkFallable(worldIn, pos);
-        }
-    }
-
-    private void checkFallable(World worldIn, BlockPos pos) {
-        if (worldIn.isAirBlock(pos.down()) || canFallThroughBlock(worldIn.getBlockState(pos.down()), worldIn, pos) && pos.getY() >= 0) {
-            if (!worldIn.isRemote) {
-                FallingBlockEntity fallingblockentity = new FallingBlockEntity(worldIn, (double)pos.getX() + 0.5D, (double)pos.getY(), (double)pos.getZ() + 0.5D, worldIn.getBlockState(pos));
-                fallingblockentity.shouldDropItem = shouldDropItemIn;
-                fallingblockentity.dontSetBlock = false;
-                onStartFalling(fallingblockentity);
-                worldIn.addEntity(fallingblockentity);
-            }
-        }
-    }
-
-    public boolean canFallThroughBlock(BlockState downState, World world, BlockPos pos) {
-        Block block = downState.getBlock();
-        Material material = downState.getMaterial();
-        BlockState state = world.getBlockState(pos);
-        shouldDropItemIn = true;
-        if (downState.getBlock() instanceof BetterConcretePowderBlock && state.getBlock() instanceof BetterConcretePowderBlock) {
-            return downState.getBlock() == state.getBlock() && downState.get(LAYERS) < 8;
-        }
-        else if (!(downState.getBlock() instanceof BetterConcretePowderBlock)) {
-            return downState.isAir() || block == Blocks.FIRE || material.isLiquid();
-        }
-        return true;
-    }
-
-    private void addLayers(World worldIn, BlockPos pos, BlockState hitState, BlockState fallingState) {
-        if (hitState.get(LAYERS) + fallingState.get(LAYERS) > 8) {
-            worldIn.setBlockState(pos, getDefaultState().with(LAYERS, 8));
-            worldIn.setBlockState(pos.up(), getDefaultState().with(LAYERS, (hitState.get(LAYERS) + fallingState.get(LAYERS)) - 8));
-        } else {
-            worldIn.setBlockState(pos, getDefaultState().with(LAYERS, hitState.get(LAYERS) + fallingState.get(LAYERS)));
-        }
+    public int tickRate(IWorldReader worldIn)
+    {
+        return 2;
     }
 
     @Override
-    protected void onStartFalling(FallingBlockEntity entity) {
-        entity.fallTile = getDefaultState().with(FALLING, true);
+    public void tick(BlockState state, World worldIn, BlockPos pos, Random random)
+    {
+        if (worldIn.isRemote) return;
+        checkFallable(worldIn, pos, state);
     }
 
-    @Override
-    public void onEndFalling(World worldIn, BlockPos pos, BlockState fallingState, BlockState hitState) {
-        if (hitState.getBlock() instanceof BetterConcretePowderBlock && fallingState.getBlock() instanceof BetterConcretePowderBlock) {
-            if (hitState.getBlock() == fallingState.getBlock()) {
-                addLayers(worldIn, pos, hitState, fallingState);
-            }
+    public static boolean canFallThrough(BlockState state)
+    {
+        Block block = state.getBlock();
+        Material material = state.getMaterial();
+        if (block instanceof BetterConcretePowderBlock) {
+            return state.get(LAYERS) < 8;
         }
-        else if (isTouchingLiquid(worldIn, pos)) {
-            worldIn.setBlockState(pos, solidState.with(LAYERS, fallingState.get(LAYERS)), 3);
-        }
-        fallingState = getDefaultState().with(FALLING, false);
+        return state.isAir() || block == Blocks.FIRE || material.isLiquid() || material.isReplaceable();
     }
 
     private static boolean isTouchingLiquid(IBlockReader reader, BlockPos pos) {
@@ -191,52 +152,92 @@ public class BetterConcretePowderBlock extends FallingBlock {
         }
     }
 
-    @Override
-    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
-        if (state.get(FALLING) && state.getBlock() instanceof BetterConcretePowderBlock) {
+    protected boolean checkFallable(World worldIn, BlockPos pos, BlockState state)
+    {
+        BlockPos posDown = pos.down();
+        if ((worldIn.isAirBlock(posDown) || canFallThrough(worldIn.getBlockState(posDown))) && pos.getY() >= 0)
+        {
+            if (!worldIn.isRemote)
+            {
+                worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+                FallingConcretePowderEntity entity = new FallingConcretePowderEntity(worldIn, pos.getX() + 0.5D, pos.getY() - 0.5D, pos.getZ() + 0.5D, state.get(LAYERS));
+                worldIn.addEntity(entity);
+            }
             return true;
-        }
-        else if (!state.get(FALLING) && useContext.replacingClickedOnBlock()) {
-            if (useContext.getItem().getItem() == asItem()) {
-                if (state.get(LAYERS) < 8) {
-                    return useContext.getFace() == Direction.UP;
-                }
-            }
-            else if (useContext.getItem().getItem() != asItem()) {
-                return state.get(LAYERS) == 1;
-            }
         }
         return false;
     }
 
+    @SuppressWarnings("deprecation")
+    public static boolean placeLayersOn(World world, BlockPos pos, int layers, boolean falling, BlockItemUseContext useContext, boolean playSound)
+    {
+        layers = MathHelper.clamp(layers, 1, 8);
+        BlockState state = world.getBlockState(pos);
+        int originLayers = 0;
+        if (state.getBlock() instanceof BetterConcretePowderBlock)
+        {
+            originLayers = state.get(LAYERS);
+            world.setBlockState(pos, state.with(LAYERS, MathHelper.clamp(originLayers + layers, 1, 8)));
+        }
+        else if (ColormaticBlocks.RED_CONCRETE_POWDER.isValidPosition(state, world, pos))
+        {
+            world.setBlockState(pos, ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState().with(LAYERS, MathHelper.clamp(layers, 1, 8)));
+        }
+        else
+        {
+            return false;
+        }
+        if (falling)
+        {
+            world.addBlockEvent(pos, ColormaticBlocks.RED_CONCRETE_POWDER, originLayers, layers);
+        }
+        else if (playSound)
+        {
+            SoundType soundtype = ColormaticBlocks.RED_CONCRETE_POWDER.getSoundType(ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState());
+            world.playSound(null, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1) / 2F, soundtype.getPitch() * 0.8F);
+        }
+        if (originLayers + layers > 8)
+        {
+            pos = pos.up();
+            if (ColormaticBlocks.RED_CONCRETE_POWDER.isValidPosition(ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState(), world, pos) && world.getBlockState(pos).isReplaceable(useContext))
+            {
+                world.setBlockState(pos, ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState().with(LAYERS, MathHelper.clamp(originLayers + layers - 8, 1, 8)));
+            }
+        }
+        return true;
+    }
+
     @Override
-    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
-        //?
+    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext)
+    {
+        int i = state.get(LAYERS);
+        if (useContext.getItem().getItem() == ColormaticBlocks.RED_CONCRETE_POWDER.asItem() && i < 8) {
+            if (useContext.replacingClickedOnBlock() && useContext.getFace() == Direction.UP) {
+                if (state.getBlock().asItem() == useContext.getItem().getItem()) {
+                    return true;
+                }
+            }
+        }
+        else return i == 1;
+        return false;
     }
 
     @Override
     @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IBlockReader reader = context.getWorld();
-        BlockPos pos = context.getPos();
+    public BlockState getStateForPlacement(BlockItemUseContext context)
+    {
         BlockState state = context.getWorld().getBlockState(context.getPos());
         if (state.getBlock() instanceof BetterConcretePowderBlock) {
             int i = state.get(LAYERS);
-            return !causesSolidify(reader.getBlockState(pos), state) && !isTouchingLiquid(reader, pos) ? super.getStateForPlacement(context).with(LAYERS, Integer.valueOf(Math.min(8, i + 1))) : solidState.with(LAYERS, Integer.valueOf(Math.min(8, i + 1)));
+            return state.with(LAYERS, Math.min(8, i + 1));
         }
         else {
-            return !causesSolidify(reader.getBlockState(pos), state) && !isTouchingLiquid(reader, pos) ? super.getStateForPlacement(context) : solidState;
+            return super.getStateForPlacement(context);
         }
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(LAYERS, FALLING);
-    }
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public int getDustColor(BlockState state) {
-        return state.getMaterial().getColor().colorValue;
+        builder.add(LAYERS);
     }
 }

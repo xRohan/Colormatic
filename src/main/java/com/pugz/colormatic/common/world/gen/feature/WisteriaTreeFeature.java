@@ -1,7 +1,6 @@
 package com.pugz.colormatic.common.world.gen.feature;
 
 import com.mojang.datafixers.Dynamic;
-import com.pugz.colormatic.core.util.GenerationUtils;
 import com.pugz.colormatic.core.util.WisteriaColor;
 import com.pugz.colormatic.core.registry.ColormaticBlocks;
 import net.minecraft.block.BlockState;
@@ -10,7 +9,6 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.feature.AbstractTreeFeature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -63,22 +61,23 @@ public class WisteriaTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     }
 
     @Override
-    protected boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader world, Random rand, BlockPos pos, MutableBoundingBox p_208519_5_) {
-        int treeHeight = rand.nextInt(4) + 6;
+    protected boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader world, Random random, BlockPos pos, MutableBoundingBox p_208519_5_) {
+        int treeHeight = random.nextInt(4) + 7;
         for (int y = pos.getY(); y <= treeHeight + pos.getY(); y++) {
             BlockPos trunkPos = new BlockPos(pos.getX(), y, pos.getZ());
             if (isAirOrLeaves(world, trunkPos)) {
                 world.setBlockState(trunkPos, LOG, 18);
             }
         }
-        placeBranch(world, rand, pos, pos.up(treeHeight).getY());
-        //placeLeaves(world, rand, pos, treeHeight + 1);
+        placeBranch(world, random, pos, pos.up(treeHeight).getY());
+        if (random.nextInt(4) == 3) placeBranch(world, random, pos, pos.up(treeHeight).getY());
+        placeLeaves(world, random, pos, treeHeight + 1);
         return true;
     }
 
-    private void placeBranch(IWorldGenerationReader world, Random rand, BlockPos pos, int treeHeight) {
-        int heightOffset = rand.nextInt(3);
-        BlockPos[] startPositions = new BlockPos[]{
+    private void placeBranch(IWorldGenerationReader world, Random random, BlockPos pos, int treeHeight) {
+        int heightOffset = random.nextInt(3);
+        BlockPos[] startPositions = new BlockPos[] {
                 new BlockPos(pos.getX() - 1, treeHeight - heightOffset, pos.getZ()),
                 new BlockPos(pos.getX() + 1, treeHeight - heightOffset, pos.getZ()),
                 new BlockPos(pos.getX(), treeHeight - heightOffset, pos.getZ() - 1),
@@ -88,29 +87,24 @@ public class WisteriaTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 new BlockPos(pos.getX() - 1, treeHeight - heightOffset, pos.getZ() + 1),
                 new BlockPos(pos.getX() + 1, treeHeight - heightOffset, pos.getZ() + 1)
         };
-        BlockPos startPos = startPositions[rand.nextInt(8)];
+        BlockPos startPos = startPositions[random.nextInt(8)];
         //generate
         if (isAirOrLeaves(world, startPos)) {
-            boolean extraLog = rand.nextBoolean();
-            boolean vines = rand.nextInt(6) != 5;
+            boolean vines = random.nextInt(6) != 5;
             BlockPos placePos = startPos;
             //place logs above until top of trunk
             for (int y = (treeHeight - heightOffset); y <= treeHeight; y++) {
                 placePos = new BlockPos(startPos.getX(), y, startPos.getZ());
                 world.setBlockState(placePos, LOG, 18);
             }
-            if (extraLog) {
-                world.setBlockState(placePos.up(), LOG, 18);
-            }
+            world.setBlockState(placePos.up(), LEAF, 18);
             if (vines) {
-                placeVines(world, rand, startPos.down());
+                placeVines(world, random, startPos.down());
             }
-            placeLeavesForBranch(world, placePos.down());
         }
     }
 
-    private void placeLeaves(IWorldGenerationReader world, Random rand, BlockPos pos, int treeHeight) {
-        //world.setBlockState(pos.up(treeHeight), LEAF, 19);
+    private void placeLeaves(IWorldGenerationReader world, Random random, BlockPos pos, int treeHeight) {
         ArrayList<BlockPos> trunkBlacklist = new ArrayList<BlockPos>() {};
         for (int y = pos.getY(); y <= treeHeight + pos.getY() - 1; y++) {
             trunkBlacklist.add(new BlockPos(pos.getX(), y, pos.getZ()));
@@ -122,13 +116,14 @@ public class WisteriaTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
                 int xMod = x - pos.getX();
                 for(int z = pos.getZ() - yMod; z <= pos.getZ() + yMod; z++) {
                     int zMod = z - pos.getZ();
-                    if (Math.abs(xMod) != yMod || Math.abs(zMod) != yMod || rand.nextInt(2) != 0 && height != 0) {
+                    if (Math.abs(xMod) != yMod || Math.abs(zMod) != yMod || random.nextInt(2) != 0 && height != 0) {
                         BlockPos placePos = new BlockPos(x, y, z);
                         for (BlockPos blacklistPos : trunkBlacklist) {
                             if (placePos != blacklistPos) {
                                 if (isAirOrLeaves(world, placePos)) {
-                                    world.setBlockState(placePos, LEAF, 19);
-                                    placeVines(world, rand, placePos.down());
+                                    world.setBlockState(placePos, LEAF, 18);
+                                    placeVines(world, random, placePos.down());
+                                    tryRemoveTopLeaf(world, placePos.down());
                                 }
                             }
                         }
@@ -138,38 +133,66 @@ public class WisteriaTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
         }
     }
 
-    private void placeVines(IWorldGenerationReader world, Random rand, BlockPos pos) {
-        int length = rand.nextInt(5);
-        if (rand.nextInt(3) < 2) length++;
-        if (rand.nextInt(6) != 5 && isAir(world, pos)) {
+    private void placeVines(IWorldGenerationReader world, Random random, BlockPos pos) {
+        int length = getLengthByNeighbors(world, random, pos);
+        if (random.nextInt(6) != 5 && isAir(world, pos)) {
             switch (length) {
                 case 0:
                     break;
                 case 1:
-                    world.setBlockState(pos, VINE_LOWER, 19);
+                        if (isAir(world, pos)) world.setBlockState(pos, VINE_LOWER, 18);
                     break;
                 case 2:
-                    world.setBlockState(pos, VINE_UPPER, 19);
-                    world.setBlockState(pos.down(), VINE_LOWER, 19);
+                    if (isAir(world, pos)) world.setBlockState(pos, VINE_UPPER, 18);
+                    if (isAir(world, pos.down())) world.setBlockState(pos.down(), VINE_LOWER, 18);
                     break;
                 case 3:
-                    world.setBlockState(pos, LEAF, 19);
-                    world.setBlockState(pos.down(), VINE_UPPER, 19);
-                    world.setBlockState(pos.down(2), VINE_LOWER, 19);
+                    if (isAir(world, pos)) world.setBlockState(pos, LEAF, 18);
+                    if (isAir(world, pos.down())) world.setBlockState(pos.down(), VINE_UPPER, 18);
+                    if (isAir(world, pos.down(2))) world.setBlockState(pos.down(2), VINE_LOWER, 18);
+                    break;
+                case 4:
+                    if (isAir(world, pos)) world.setBlockState(pos, LEAF, 18);
+                    if (isAir(world, pos.down())) world.setBlockState(pos.down(), LEAF, 18);
+                    if (isAir(world, pos.down(2))) world.setBlockState(pos.down(2), VINE_UPPER, 18);
+                    if (isAir(world, pos.down(3))) world.setBlockState(pos.down(3), VINE_LOWER, 18);
                     break;
                 case 5:
-                    world.setBlockState(pos, LEAF, 19);
-                    world.setBlockState(pos.down(), LEAF, 19);
-                    world.setBlockState(pos.down(2), VINE_UPPER, 19);
-                    world.setBlockState(pos.down(3), VINE_LOWER, 19);
+                    if (isAir(world, pos)) world.setBlockState(pos, LEAF, 18);
+                    if (isAir(world, pos.down())) world.setBlockState(pos, LEAF, 18);
+                    if (isAir(world, pos.down(2))) world.setBlockState(pos.down(), LEAF, 18);
+                    if (isAir(world, pos.down(3))) world.setBlockState(pos.down(2), VINE_UPPER, 18);
+                    if (isAir(world, pos.down(4))) world.setBlockState(pos.down(3), VINE_LOWER, 18);
                     break;
             }
         }
     }
 
-    private void placeLeavesForBranch(IWorldGenerationReader world, BlockPos pos) {
+    private int getLengthByNeighbors(IWorldGenerationReader world, Random random, BlockPos pos) {
+        int length = random.nextInt(6); // max 4
         for (Direction direction : Direction.values()) {
-            if (isAirOrLeaves(world, pos.up())) world.setBlockState(pos.up().offset(direction), LEAF, 18);
+            if (direction != Direction.UP && direction != Direction.DOWN) {
+                if (isAir(world, pos.offset(direction))) length++; // max 2 min 1
+                else if (isLeaves(world, pos.offset(direction))) length--; // max 4 min 2
+            }
+        }
+        return length;
+    }
+
+    private void tryRemoveTopLeaf(IWorldGenerationReader world, BlockPos pos) {
+        for (int y = pos.getY(); y <= pos.getY() + 4; y++) {
+            if (y == pos.getY() + 4) {
+                BlockPos placePos = new BlockPos(pos.getX(), y, pos.getZ());
+                if (isLeaves(world, placePos)) {
+                    for (Direction direction : Direction.values()) {
+                        if (direction != Direction.UP && direction != Direction.DOWN) {
+                            int air = 0;
+                            if (isAir(world, pos.offset(direction))) air++;
+                            if (air == 2) world.setBlockState(placePos, Blocks.AIR.getDefaultState(), 18);
+                        }
+                    }
+                }
+            }
         }
     }
 

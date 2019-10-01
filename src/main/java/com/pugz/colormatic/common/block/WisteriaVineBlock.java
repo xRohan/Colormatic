@@ -1,12 +1,8 @@
 package com.pugz.colormatic.common.block;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
@@ -108,7 +104,7 @@ public class WisteriaVineBlock extends Block implements net.minecraftforge.commo
 
     protected boolean isStateValid(World worldIn, BlockPos pos) {
         Block block = worldIn.getBlockState(pos.up()).getBlock();
-        return block == getDefaultState().with(HALF, DoubleBlockHalf.UPPER).getBlock() || block instanceof LeavesBlock;
+        return block == getDefaultState().with(HALF, DoubleBlockHalf.UPPER).getBlock() || block instanceof LeavesBlock || block instanceof LogBlock;
     }
 
     @Override

@@ -17,10 +17,6 @@ public class WisteriaTree extends Tree {
       color = colorIn;
    }
 
-   public WisteriaColor getColor() {
-      return color;
-   }
-
    @Nullable
    protected AbstractTreeFeature<NoFeatureConfig> getTreeFeature(Random random) {
       return new WisteriaTreeFeature(NoFeatureConfig::deserialize, true, color);

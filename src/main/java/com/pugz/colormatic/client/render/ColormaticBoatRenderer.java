@@ -8,13 +8,13 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-public class RenderColormaticBoat extends EntityRenderer<ColormaticBoatEntity> {
-    private static final ResourceLocation[] BOAT_TEXTURES = new ResourceLocation[] {
+public class ColormaticBoatRenderer extends EntityRenderer<ColormaticBoatEntity> {
+    private static final ResourceLocation[] BOAT_TEXTURE = new ResourceLocation[] {
             new ResourceLocation("colormatic", "textures/entity/boat/wisteria_boat.png"),
     };
     protected final ModelColormaticBoat model = new ModelColormaticBoat();
 
-    public RenderColormaticBoat(EntityRendererManager renderManagerIn) {
+    public ColormaticBoatRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn);
         shadowSize = 0.8F;
     }
@@ -29,11 +29,13 @@ public class RenderColormaticBoat extends EntityRenderer<ColormaticBoatEntity> {
             GlStateManager.enableColorMaterial();
             GlStateManager.setupSolidRenderingTextureCombine(this.getTeamColor(entity));
         }
+
         model.render(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F, 0.0625F);
         if (renderOutlines) {
             GlStateManager.tearDownSolidRenderingTextureCombine();
             GlStateManager.disableColorMaterial();
         }
+
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
@@ -64,12 +66,7 @@ public class RenderColormaticBoat extends EntityRenderer<ColormaticBoatEntity> {
 
     @Override
     protected ResourceLocation getEntityTexture(ColormaticBoatEntity entity) {
-        return BOAT_TEXTURES[entity.getBoatModel().ordinal()];
-    }
-
-    @Override
-    public boolean isMultipass() {
-        return true;
+        return BOAT_TEXTURE[entity.getBoatModel().ordinal()];
     }
 
     @Override

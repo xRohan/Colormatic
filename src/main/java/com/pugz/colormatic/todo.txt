@@ -5,8 +5,6 @@ add connection for Quilted Wool Blocks
 
 get FallingConcretePowderEntity to work
 
-Try using a BlockState for isFalling on Concrete Powder Layers
-
 NEXT:
 Glazed Terracotta Pillars
 Butterflies and Wisterents
