@@ -1,16 +1,15 @@
 package com.pugz.colormatic.common.block;
 
 import com.pugz.colormatic.common.entity.FallingConcretePowderEntity;
-import com.pugz.colormatic.core.registry.ColormaticBlocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -61,7 +60,7 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
     }
 
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPES[state.get(LAYERS) - 1];
+        return SHAPES[state.get(LAYERS)];
     }
 
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -73,17 +72,17 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
                 return true;
             }
             if (heldItem.getItem() instanceof ShovelItem) {
-                if (state.get(LAYERS) > 1) {
-                    worldIn.setBlockState(pos, state.with(LAYERS, state.get(LAYERS) - 1));
-                    if (!player.abilities.isCreativeMode) {
-                        heldItem.damageItem(1, player, playerIn -> player.sendBreakAnimation(handIn));
+                if (!player.abilities.isCreativeMode) {
+                    heldItem.damageItem(1, player, playerIn -> player.sendBreakAnimation(handIn));
+                    if (state.get(LAYERS) > 1) {
+                        worldIn.setBlockState(pos, state.with(LAYERS, state.get(LAYERS) - 1));
+                        return true;
                     }
-                    return true;
-                }
-                else {
-                    worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-                    //worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this, 1)));
-                    return true;
+                    else {
+                        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+                        //worldIn.addEntity(new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(this, 1)));
+                        return true;
+                    }
                 }
             }
         }
@@ -103,14 +102,15 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
         checkFallable(worldIn, pos, state);
     }
 
-    public static boolean canFallThrough(BlockState state)
+    public static boolean canFallThrough(BlockState state, BlockState downState)
     {
-        Block block = state.getBlock();
-        Material material = state.getMaterial();
-        if (block instanceof BetterConcretePowderBlock) {
-            return state.get(LAYERS) < 8;
+        if (downState.getBlock() == state.getBlock()) {
+            return downState.get(LAYERS) < 8;
         }
-        return state.isAir() || block == Blocks.FIRE || material.isLiquid() || material.isReplaceable();
+        else if (!(downState.getBlock() instanceof BetterConcretePowderBlock)) {
+            downState.getMaterial().isReplaceable();
+        }
+        return downState.isAir() || downState.getBlock() == Blocks.FIRE || downState.getMaterial().isLiquid();
     }
 
     private static boolean isTouchingLiquid(IBlockReader reader, BlockPos pos) {
@@ -155,12 +155,12 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
     protected boolean checkFallable(World worldIn, BlockPos pos, BlockState state)
     {
         BlockPos posDown = pos.down();
-        if ((worldIn.isAirBlock(posDown) || canFallThrough(worldIn.getBlockState(posDown))) && pos.getY() >= 0)
+        if ((worldIn.isAirBlock(posDown) || canFallThrough(state, worldIn.getBlockState(posDown))) && pos.getY() >= 0)
         {
             if (!worldIn.isRemote)
             {
                 worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
-                FallingConcretePowderEntity entity = new FallingConcretePowderEntity(worldIn, pos.getX() + 0.5D, pos.getY() - 0.5D, pos.getZ() + 0.5D, state.get(LAYERS));
+                FallingConcretePowderEntity entity = new FallingConcretePowderEntity(worldIn, pos.getX() + 0.5D, pos.getY() - 0.5D, pos.getZ() + 0.5D, state.get(LAYERS), state);
                 worldIn.addEntity(entity);
             }
             return true;
@@ -169,40 +169,28 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
     }
 
     @SuppressWarnings("deprecation")
-    public static boolean placeLayersOn(World world, BlockPos pos, int layers, boolean falling, BlockItemUseContext useContext, boolean playSound)
+    public static boolean placeLayersOn(BlockState fallState, World world, BlockPos pos, int layers, boolean falling, BlockItemUseContext useContext, boolean playSound)
     {
         layers = MathHelper.clamp(layers, 1, 8);
         BlockState state = world.getBlockState(pos);
         int originLayers = 0;
-        if (state.getBlock() instanceof BetterConcretePowderBlock)
-        {
+        if (state.getBlock() instanceof BetterConcretePowderBlock) {
             originLayers = state.get(LAYERS);
             world.setBlockState(pos, state.with(LAYERS, MathHelper.clamp(originLayers + layers, 1, 8)));
         }
-        else if (ColormaticBlocks.RED_CONCRETE_POWDER.isValidPosition(state, world, pos))
-        {
-            world.setBlockState(pos, ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState().with(LAYERS, MathHelper.clamp(layers, 1, 8)));
-        }
-        else
-        {
+        else {
             return false;
         }
-        if (falling)
-        {
-            world.addBlockEvent(pos, ColormaticBlocks.RED_CONCRETE_POWDER, originLayers, layers);
+        if (falling) {
+            world.addBlockEvent(pos, fallState.getBlock(), originLayers, layers);
         }
-        else if (playSound)
-        {
-            SoundType soundtype = ColormaticBlocks.RED_CONCRETE_POWDER.getSoundType(ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState());
+        else if (playSound) {
+            SoundType soundtype = fallState.getBlock().getSoundType(fallState);
             world.playSound(null, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1) / 2F, soundtype.getPitch() * 0.8F);
         }
-        if (originLayers + layers > 8)
-        {
+        if (originLayers + layers > 8) {
             pos = pos.up();
-            if (ColormaticBlocks.RED_CONCRETE_POWDER.isValidPosition(ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState(), world, pos) && world.getBlockState(pos).isReplaceable(useContext))
-            {
-                world.setBlockState(pos, ColormaticBlocks.RED_CONCRETE_POWDER.getDefaultState().with(LAYERS, MathHelper.clamp(originLayers + layers - 8, 1, 8)));
-            }
+            world.setBlockState(pos, fallState.with(LAYERS, MathHelper.clamp(originLayers + layers - 8, 1, 8)));
         }
         return true;
     }
@@ -211,7 +199,7 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
     public boolean isReplaceable(BlockState state, BlockItemUseContext useContext)
     {
         int i = state.get(LAYERS);
-        if (useContext.getItem().getItem() == ColormaticBlocks.RED_CONCRETE_POWDER.asItem() && i < 8) {
+        if (useContext.getItem().getItem() == state.getBlock().asItem() && i < 8) {
             if (useContext.replacingClickedOnBlock() && useContext.getFace() == Direction.UP) {
                 if (state.getBlock().asItem() == useContext.getItem().getItem()) {
                     return true;
@@ -234,6 +222,11 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
         else {
             return super.getStateForPlacement(context);
         }
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override

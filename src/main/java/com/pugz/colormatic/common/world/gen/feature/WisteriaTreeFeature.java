@@ -63,16 +63,19 @@ public class WisteriaTreeFeature extends AbstractTreeFeature<NoFeatureConfig> {
     @Override
     protected boolean place(Set<BlockPos> changedBlocks, IWorldGenerationReader world, Random random, BlockPos pos, MutableBoundingBox p_208519_5_) {
         int treeHeight = random.nextInt(4) + 7;
-        for (int y = pos.getY(); y <= treeHeight + pos.getY(); y++) {
-            BlockPos trunkPos = new BlockPos(pos.getX(), y, pos.getZ());
-            if (isAirOrLeaves(world, trunkPos)) {
-                world.setBlockState(trunkPos, LOG, 18);
+        if (isDirtOrGrassBlock(world, pos.down(2))) {
+            for (int y = pos.down().getY(); y <= treeHeight + pos.down().getY(); y++) {
+                BlockPos trunkPos = new BlockPos(pos.down().getX(), y, pos.down().getZ());
+                if (isAirOrLeaves(world, trunkPos)) {
+                    world.setBlockState(trunkPos, LOG, 18);
+                }
             }
+            placeBranch(world, random, pos.down(), pos.up(treeHeight).getY());
+            if (random.nextInt(4) == 3) placeBranch(world, random, pos.down(), pos.up(treeHeight).getY());
+            placeLeaves(world, random, pos.down(), treeHeight + 1);
+            return true;
         }
-        placeBranch(world, random, pos, pos.up(treeHeight).getY());
-        if (random.nextInt(4) == 3) placeBranch(world, random, pos, pos.up(treeHeight).getY());
-        placeLeaves(world, random, pos, treeHeight + 1);
-        return true;
+        return false;
     }
 
     private void placeBranch(IWorldGenerationReader world, Random random, BlockPos pos, int treeHeight) {

@@ -1,6 +1,8 @@
 package com.pugz.colormatic.common.world.gen.feature;
 
 import com.pugz.colormatic.core.util.WisteriaColor;
+import net.minecraft.world.gen.feature.DoublePlantConfig;
+import net.minecraft.world.gen.feature.DoublePlantFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.event.RegistryEvent;
@@ -16,10 +18,10 @@ public class ColormaticFeatures {
     public static Feature<NoFeatureConfig> WISTERIA_TREE_WHITE = new WhiteWisteriaTreeFeature(NoFeatureConfig::deserialize, false);
 
     //delphiniums
-    public static Feature<NoFeatureConfig> DELPHINIUMS_BLUE = new DelphiniumFeature(NoFeatureConfig::deserialize, WisteriaColor.BLUE);
-    public static Feature<NoFeatureConfig> DELPHINIUMS_PINK = new DelphiniumFeature(NoFeatureConfig::deserialize, WisteriaColor.PINK);
-    public static Feature<NoFeatureConfig> DELPHINIUMS_PURPLE = new DelphiniumFeature(NoFeatureConfig::deserialize, WisteriaColor.PURPLE);
-    public static Feature<NoFeatureConfig> DELPHINIUMS_WHITE = new DelphiniumFeature(NoFeatureConfig::deserialize, WisteriaColor.WHITE);
+    public static Feature<DoublePlantConfig> DELPHINIUMS_BLUE = new DoublePlantFeature(DoublePlantConfig::deserialize);
+    public static Feature<DoublePlantConfig> DELPHINIUMS_PINK = new DoublePlantFeature(DoublePlantConfig::deserialize);
+    public static Feature<DoublePlantConfig> DELPHINIUMS_PURPLE = new DoublePlantFeature(DoublePlantConfig::deserialize);
+    public static Feature<DoublePlantConfig> DELPHINIUMS_WHITE = new DoublePlantFeature(DoublePlantConfig::deserialize);
 
     private static void nameFeatures() {
         WISTERIA_TREE_BLUE.setRegistryName("blue_wisteria_tree");

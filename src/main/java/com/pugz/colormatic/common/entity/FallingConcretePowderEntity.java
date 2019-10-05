@@ -5,7 +5,6 @@ import com.pugz.colormatic.core.registry.ColormaticEntities;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.item.DirectionalPlaceContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -25,7 +24,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
-import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import java.util.Random;
@@ -37,25 +35,27 @@ public class FallingConcretePowderEntity extends Entity {
     protected static final DataParameter<BlockPos> ORIGIN = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.BLOCK_POS);
     private static final DataParameter<Integer> LAYERS = EntityDataManager.createKey(FallingConcretePowderEntity.class, DataSerializers.VARINT);
     private EntitySize size;
+    public BlockState fallTile;
 
     public FallingConcretePowderEntity(EntityType<? extends Entity> type, World world) {
         super(type, world);
         preventEntitySpawning = true;
     }
 
-    public FallingConcretePowderEntity(World world)
+    public FallingConcretePowderEntity(World world, BlockState fallState)
     {
         super(ColormaticEntities.FALLING_CONCRETE_POWDER, world);
         prevPos = BlockPos.ZERO;
         layers = 1;
         size = new EntitySize(0.98f, 0.1225f * layers, true);
+        fallTile = fallState;
     }
 
-    public FallingConcretePowderEntity(FMLPlayMessages.SpawnEntity spawnEntity, World world) {
+    public FallingConcretePowderEntity(World world) {
         this(ColormaticEntities.FALLING_CONCRETE_POWDER, world);
     }
 
-    public FallingConcretePowderEntity(World worldIn, double x, double y, double z, int layersIn)
+    public FallingConcretePowderEntity(World worldIn, double x, double y, double z, int layersIn, BlockState fallState)
     {
         super(ColormaticEntities.FALLING_CONCRETE_POWDER, worldIn);
         preventEntitySpawning = true;
@@ -68,6 +68,7 @@ public class FallingConcretePowderEntity extends Entity {
         setData(new BlockPos(this), layers);
         prevPos = new BlockPos(this);
         size = new EntitySize(0.98f, 0.1225f * layers, true);
+        fallTile = fallState;
     }
 
     @Override
@@ -141,7 +142,7 @@ public class FallingConcretePowderEntity extends Entity {
                             pos = posDown;
                         }
                     }
-                    BetterConcretePowderBlock.placeLayersOn(world, pos, layers, true, new DirectionalPlaceContext(world, pos, Direction.DOWN, ItemStack.EMPTY, Direction.UP), true);
+                    BetterConcretePowderBlock.placeLayersOn(fallTile, world, pos, layers, true, new DirectionalPlaceContext(world, pos, Direction.DOWN, ItemStack.EMPTY, Direction.UP), true);
                     remove();
                     return;
                 }
