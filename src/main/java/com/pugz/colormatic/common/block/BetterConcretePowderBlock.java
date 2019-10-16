@@ -2,14 +2,12 @@ package com.pugz.colormatic.common.block;
 
 import com.pugz.colormatic.common.entity.FallingConcretePowderEntity;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -60,7 +58,7 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
     }
 
     public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPES[state.get(LAYERS)];
+        return SHAPES[state.get(LAYERS) - 1];
     }
 
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -87,12 +85,6 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
             }
         }
         return false;
-    }
-
-    @Override
-    public int tickRate(IWorldReader worldIn)
-    {
-        return 2;
     }
 
     @Override
@@ -133,10 +125,7 @@ public class BetterConcretePowderBlock extends ConcretePowderBlock {
 
     private static boolean causesSolidify(BlockState solidifyState, BlockState state) {
         if (solidifyState.getBlock() instanceof BetterConcreteBlock) {
-            if (solidifyState.get(LAYERS) <= state.get(LAYERS)) {
-                return true;
-            }
-            return false;
+            return solidifyState.get(LAYERS) <= state.get(LAYERS);
         }
         return solidifyState.getFluidState().isTagged(FluidTags.WATER);
     }

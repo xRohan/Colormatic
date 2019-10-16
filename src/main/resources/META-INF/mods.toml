@@ -11,8 +11,8 @@ authors="Pugz"
     Build better with more color!
     '''
     [[dependencies.colormatic]]
-        modId="forge"
+        modId="pugzlib"
         mandatory=true
-        versionRange="[${forge_version},)"
-        ordering="NONE"
+        versionRange="[1.4-34,)"
+        ordering="AFTER"
         side="BOTH"

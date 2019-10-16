@@ -20,47 +20,33 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: '20190719-1.14.3'
-    
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
     runs {
         client {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 colormatic {
                     source sourceSets.main
                 }
             }
         }
-
         server {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
             property 'forge.logging.console.level', 'debug'
-
             mods {
                 colormatic {
                     source sourceSets.main
                 }
             }
         }
-
         data {
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
             property 'forge.logging.console.level', 'debug'
-
             args '--mod', 'colormatic', '--all', '--output', file('src/generated/resources/')
-
             mods {
                 colormatic {
                     source sourceSets.main
@@ -71,5 +57,5 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.38'
+    minecraft 'net.minecraftforge:forge:1.14.4-28.1.56'
 }
